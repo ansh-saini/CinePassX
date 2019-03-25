@@ -8,6 +8,7 @@ from . import CONSTANTS as constants
 from . import CONFIG as config
 import hashlib
 import requests
+import json
 from random import randint
 from django.views.decorators.csrf import csrf_exempt
 from .forms import UserRegisterForm
@@ -33,8 +34,6 @@ def payment(request):
 	print(hash_)
 	hash_string = get_hash_string(request, txnid)
 	print(hash_string)
-	# use constants file to store constant values.
-	# use test URL for testing
 	data['action'] = constants.PAYMENT_URL_TEST 
 	data['amount'] = float(constants.PAID_FEE_AMOUNT)
 	data['productinfo']  = constants.PAID_FEE_PRODUCT_INFO
@@ -60,38 +59,41 @@ def generate_hash(request, txnid):
 		generated_hash = hashlib.sha512(hash_string.encode('utf-8')).hexdigest().lower()
 		return generated_hash
 	except Exception as e:
-		print("owowowo")
 		# log the error here.
 		logging.getLogger('error_logger').error(traceback.format_exc())
 		return None
 
 # create hash string using all the fields
 def get_hash_string(request, txnid):
-	user = request.user
 	hash_string = config.KEY+"|"+txnid+"|"+str(float(constants.PAID_FEE_AMOUNT))+"|"+constants.PAID_FEE_PRODUCT_INFO+"|"
 	hash_string += request.user.first_name+"|"+request.user.email+"|"
 	hash_string += "||||||||||"+config.SALT
-
 	return hash_string
 
 # generate a random transaction Id.
 def get_transaction_id():
 	hash_object = hashlib.sha256(str(randint(0,9999)).encode('utf-8'))
-	# take approprite length
 	txnid = hash_object.hexdigest().lower()[0:32]
 	return txnid
 
-# no csrf token require to go to Success page. 
-# This page displays the success/confirmation message to user indicating the completion of transaction.
 @csrf_exempt
 def payment_success(request):
-	print(request.__dict__)
-	return render(request, 'main/payment_success.html')
+	r = request.POST.dict()
+	# hashSequence = salt|status||||||udf5|udf4|udf3|udf2|udf1|email|firstname|productinfo|amount|txnid|key
+	hashSequence = config.SALT + '|' + r['status'] + '||||||' + r['udf5'] + '|' + r['udf4'] + '|' + r['udf3'] + '|' + r['udf2'] + '|' + r['udf1'] + '|' + r['email'] + '|' + r['firstname'] + '|' + r['productinfo'] + '|' + r['amount'] + '|' + r['txnid'] + '|' + config.KEY
+	print(hashSequence)
+	generated_hash = hashlib.sha512(hashSequence.encode('utf-8')).hexdigest().lower()
+	if generated_hash == r['hash']:
+		data = {'status': r['status'],
+				'txnid': r['txnid'],
+				'amount': r['amount'],
+		}
+		return render(request, 'main/payment_success.html', data)
+	else:
+		return render(request, 'main/payment_failure.html')
 
-# no csrf token require to go to Failure page. This page displays the message and reason of failure.
 @csrf_exempt
 def payment_failure(request):
-	# print(request.data)
 	return render(request, 'main/payment_failure.html')
 
 
