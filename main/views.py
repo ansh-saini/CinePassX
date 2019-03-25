@@ -13,6 +13,12 @@ from random import randint
 from django.views.decorators.csrf import csrf_exempt
 from .forms import UserRegisterForm
 
+def dashboard(request):
+	return render(request, 'main/dashboard.html')
+
+def home(request):
+	return render(request, 'main/home.html')
+
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
