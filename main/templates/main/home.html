@@ -43,8 +43,8 @@
 
                 </div>
                 <div class="col-xs-12 col-sm-4">
-                    <div class="price-box">
-                        <div class="price-header">
+                    <div class="price-box" style="background-image: url('{% static 'main/images/price_box.jpg' %}')">
+                        <div class="price-header" style="background-image: url('{% static 'main/images/price_box.jpg' %}')">
                             <div class="price-icon">
                                 <span class="lnr lnr-diamond"></span>
                             </div>
@@ -56,7 +56,7 @@
                                 <li>Weekdays Only</li>
                                 <li>No convenience fees</li>
                             </ul>
-                            <div class='pm-button'><a href='https://www.payumoney.com/paybypayumoney/#/8BEB4B24E7FC7F4D6BA6703650892236'><img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/21.png' /></a></div> 
+                            <div class='pm-button'><a href="{% url 'payment' %}"><img src='https://www.payumoney.com/media/images/payby_payumoney/new_buttons/21.png' /></a></div> 
                         </div>
                         <div class="price-rate">
                             <sup>&#8377;</sup> <span class="rate">399</span> <small>/Month</small>
@@ -76,7 +76,7 @@
     </section>
     <!--Price-Area-End -->
     <!-- Download-Area -->
-    <div class="download-area overlay">
+    <div class="download-area overlay"  style="background-image: url('{% static 'main/images/download-bg.jpg' %})">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 hidden-sm">
@@ -97,7 +97,7 @@
     </div>
     <!-- Download-Area-End -->
     <!-- Subscribe-Form -->
-    <div class="subscribe-area section-padding">
+    <div class="subscribe-area section-padding" style="background: url('{% static 'main/images/subscribe-bg.jpg' %}') no-repeat scroll center center / cover">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2">

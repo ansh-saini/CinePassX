@@ -9,12 +9,34 @@ from . import CONFIG as config
 import hashlib
 import requests
 import json
+import datetime
 from random import randint
 from django.views.decorators.csrf import csrf_exempt
 from .forms import UserRegisterForm
 
+from .models import Show
+
+# @login_required
+# def book(request):
+#     if request.method == 'POST':
+#         form = BookForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             username = form.cleaned_data.get('username')
+#             messages.success(request, f'Your Movie has been Boooked!')
+#             return redirect('dashboard')
+
+#     else:
+#         form = UserRegisterForm()
+#     return render(request, 'main/register.html', {'form': form})
+
+
+@login_required
 def dashboard(request):
-	return render(request, 'main/dashboard.html')
+	date = datetime.datetime.now()
+	formated_date = date.strftime("%d-%m-%y")
+	shows = Show.objects.filer(date=formated_date)
+	return render(request, 'main/dashboard.html', {'shows': shows, 'date': formated_date})
 
 def home(request):
 	return render(request, 'main/home.html')
@@ -32,7 +54,7 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'main/register.html', {'form': form})
 
-
+@login_required
 def payment(request):   
 	data = {}
 	txnid = get_transaction_id()

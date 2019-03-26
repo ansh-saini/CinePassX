@@ -51,15 +51,21 @@
             <div class="collapse navbar-collapse" id="primary_menu">
                 <ul class="nav navbar-nav mainmenu" >
                     <li class="active">
-                      <a href="#home_page" >Home</a></li>
+                      <a href="{% url 'home' %}" >Home</a></li>
                     <li><a href="#about_page">Book Tickets</a></li>
                     <li><a href="#contact_page">About</a></li>
                     <li><a href="#contact_page">Upload Bills</a></li>
                     <li><a href="#contact_page">Contact Us</a></li>
                 </ul>
-                <div class="right-button hidden-xs" id="btn-login">
-                    <a href="#">Log In</a>
-                </div>
+                {% if user.is_authenticated %}
+                    <div class="right-button hidden-xs" id="btn-login">
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </div>
+                {% else %}
+                    <div class="right-button hidden-xs" id="btn-login">
+                        <a href="{% url 'login' %}">Login/Register</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </nav>
@@ -75,7 +81,7 @@
                     <div class="col-xs-12">
                         <div class="page-title text-center">
                             <h5 class="title">Contact US</h5>
-                            <h3 class="dark-color">Find Us Through Bellow Details</h3>
+                            <h3 class="dark-color">Find Us Through Below Details</h3>
                             <div class="space-60"></div>
                         </div>
                     </div>

@@ -466,7 +466,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6840a', end
 
 .home-area {
     width: 100%;
-    background: url('{% static 'images/header-bg.jpg' %}') no-repeat scroll center bottom / cover;
+    /*background: no-repeat scroll center bottom / cover;*/
     padding-top: 26vh;
     color: #ffffff;
     margin-bottom: 100px;
@@ -741,7 +741,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6840a', end
 /*-- 14. Download-Area --*/
 
 .download-area {
-    background-image: url('images/download-bg.jpg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -795,7 +794,7 @@ box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.1);
 transition: 0.3s;
 }
 .price-box .price-header {
-  background-image: url("images/price_box.jpg");
+  /*background-image: url("images/price_box.jpg");*/
   /*  background-color: #FFBB52; */
     padding: 40px;
     color: #D6840A;
