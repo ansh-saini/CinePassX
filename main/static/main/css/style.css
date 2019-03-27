@@ -347,13 +347,23 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6840a', end
 }
 
 .mainmenu-area.affix {
-    position: fixed;
-    top: 0;
-    opacity: 1;
+    
+    background: #d6840a; /* Old browsers */
+  background: rgba(76, 175, 80, 0.1);
+  background: -moz-linear-gradient(45deg, #d6840a 0%, #ffbb52 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(45deg, #d6840a 0%,#ffbb52 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(45deg, #d6840a 0%,#ffbb52 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+
 }
 
 .mainmenu-area.affix:before {
-    opacity: 1;
+    background: #d6840a; /* Old browsers */
+  background: rgba(76, 175, 80, 0.1);
+  background: -moz-linear-gradient(45deg, #d6840a 0%, #ffbb52 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(45deg, #d6840a 0%,#ffbb52 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(45deg, #d6840a 0%,#ffbb52 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
 }
 
 .mainmenu-area .right-button  {

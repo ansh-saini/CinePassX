@@ -19,19 +19,23 @@ from .models import Show
 @login_required
 def book(request):
 	if request.user.profile.subscribed:
-		if request.method == 'POST':	
-			date = datetime.datetime.now()
-			formated_date = date.strftime("%Y-%m-%d")
-			shows = Show.objects.filter(date=formated_date)
-			form = BookForm(request.POST)
-			print("owo")
-			print(form)
-			username = form.cleaned_data.get('username')
-			messages.success(request, f'Your Movie has been Boooked!')
+		if request.user.profile.booked_show:
+			messages.error(request, f'You have already booked a show today!')
 			return redirect('dashboard')
 		else:
-			form = BookForm()
-		return render(request, 'main/book.html', {'form': form})
+			print("ELSE")
+			if request.method == 'POST':	
+				date = datetime.datetime.now()
+				formated_date = date.strftime("%Y-%m-%d")
+				shows = Show.objects.filter(date=formated_date)
+				form = BookForm(request.POST)
+				request.user.profile.booked_show = True
+				request.user.profile.save()
+				messages.success(request, f'Your Movie has been Boooked!')
+				return redirect('dashboard')
+			else:
+				form = BookForm()
+			return render(request, 'main/book.html', {'form': form})
 	else:
 		messages.error(request, f'Please buy a Subscription First!')
 		return redirect('dashboard')

@@ -2,30 +2,27 @@
 {% load static %}
 {% block content %}
 
-{% for show in shows %}
-<div class="show">
-  <div class="show-title">{{ show.movie.title }}</div>
-  <div class="show-date">{{ show.time|date:'D, d M' }}</div>
-  <div class="show-time">{{ show.time|date:'g:i A' }}</div>
-</div>
-{% endfor %}
-
-{{ date }}
-
-<!--         <section class="section-padding price-area" id="price_page">
-            <div class="container">
-              <div class="page-title text-center">
-                  <h4 class="title">Book movie tickets</h4>
-                  <div class="space-60"></div>
-                <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-lg-3 col-md-3 customPoster">
+<section class="section-padding price-area" id="price_page">
+  <div class="container">
+      <div class="page-title text-center">
+          <h4 class="title">Today's Shows</h4>
+            <div class="space-60"></div>
+              <div class="row">
+              {% for show in shows %}
+              <div class="col-xs-6 col-sm-6 col-lg-3 col-md-3 customPoster">
                       <figure class="mobile-image wow fadeInUp" data-wow-delay="0.3s">
+                          <div class="show-title">{{ show.movie.title }}</div>
+                          <div class="show-date">{{ show.time|date:'D, d M' }}</div>
+                          <div class="show-time">{{ show.time|date:'g:i A' }}</div>
                           <img src="{% static 'main/images/four.jpg' %}" alt="">
                           <a href="/cinema_select"></a>
                       </figure>
                     </div>
-                    <div class="col-xs-6 col-sm-6 col-lg-3 col-md-3 customPoster">
+              {% endfor %}
 
+
+                    
+<!--                     <div class="col-xs-6 col-sm-6 col-lg-3 col-md-3 customPoster">
                       <figure class="mobile-image wow fadeInUp" data-wow-delay="0.3s">
                           <img src="{% static 'main/images/one.jpg' %}" alt="">
                           <a href="/this.html" ></a>
@@ -42,7 +39,7 @@
                               <img src="{% static 'main/images/three.png' %}" alt="">
                               <a href="/cinema_select"></a>
                           </figure>
-                            </div>
+                            </div> -->
                     </div>
                 </div>
             </div>

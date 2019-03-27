@@ -6,7 +6,7 @@ import datetime
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
-    phone = forms.CharField(max_length=True)
+    phone = forms.CharField(max_length=10)
 
     class Meta:
         model = User

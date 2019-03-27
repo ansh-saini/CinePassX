@@ -13,8 +13,6 @@ class Movie(models.Model):
 
 class Show(models.Model):
 	movie = models.OneToOneField(Movie, on_delete=models.CASCADE)
-	# time = models.DateTimeField(blank=False)
-
 	date = models.DateField(blank=False)
 	time = models.TimeField(blank=False)
 
