@@ -38,7 +38,11 @@
         <span><i class="lnr lnr-sun"></i></span>
     </div>
     <!-- MainMenu-Area -->
-    <nav class="mainmenu-area" data-spy="affix" data-offset-top="200">
+    {% if home %}
+        <nav class="mainmenu-area-home" data-spy="affix" data-offset-top="200">
+    {% else %}
+        <nav class="mainmenu-area" data-spy="affix" data-offset-top="200">
+    {% endif %}
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#primary_menu">
@@ -70,7 +74,11 @@
         </div>
     </nav>
     <!-- MainMenu-Area-End -->
-    <div class='content'>
+    {% if home %}
+        <div class='content'>
+    {% else %}
+        <div class='content' style="margin-top: 150px;">
+    {% endif %}
         {% if messages %}
           {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
@@ -80,6 +88,7 @@
         {% endif %}    
         {% block content %}{% endblock content %}
     </div>
+
     <!-- Footer-Area -->
     <footer class="footer-area" id="contact_page">
         <div class="section-padding">

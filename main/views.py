@@ -49,7 +49,8 @@ def dashboard(request):
 	return render(request, 'main/dashboard.html', {'shows': shows, 'date': formated_date})
 
 def home(request):
-	return render(request, 'main/home.html')
+	home = True
+	return render(request, 'main/home.html', {'home': home})
 
 def register(request):
     if request.method == 'POST':
