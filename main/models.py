@@ -19,8 +19,14 @@ class Show(models.Model):
 	time = models.TimeField(blank=False)
 
 	def __str__(self):
-		return f'{self.movie.title} at {self. time}' 
+		return f'{self.movie.title} at {self. time}'
 
+class Booked(models.Model):
+	show = models.ForeignKey(Show, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE) 
+
+	def __str__(self):
+		return f'{user} booked {show}'
 
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)

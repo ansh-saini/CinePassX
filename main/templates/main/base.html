@@ -70,9 +70,16 @@
         </div>
     </nav>
     <!-- MainMenu-Area-End -->
-
-{% block content %}{% endblock content %}
-
+    <div class='content'>
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}    
+        {% block content %}{% endblock content %}
+    </div>
     <!-- Footer-Area -->
     <footer class="footer-area" id="contact_page">
         <div class="section-padding">

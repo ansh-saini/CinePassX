@@ -1,24 +1,21 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile
+from .models import Profile, Show
 import datetime
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
+    phone = forms.CharField(max_length=True)
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'username', 'email', 'phone', 'password1', 'password2']
 
-# class BookForm(forms.Form):
-# 	queryset = Show.objects.filter(time=datetime.datetime.now())
-# 	show = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=docs)
+class BookForm(forms.Form):
+	date = datetime.datetime.now().strftime("%Y-%m-%d")
+	queryset = Show.objects.filter(date=date)
+	show = forms.ModelMultipleChoiceField(widget=forms.RadioSelect, queryset=queryset)
 	
-# 	class Meta:
-# 		fields = ['show']
-
-# 	def __init__(self, request, *args, **kwargs):
-# 		super().__init__(*args, **kwargs)
-# 		show = Show.objects.filter(time=request.user)
-# 		self.fields['checklist'] = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=docs)
+	class Meta:
+		fields = ['show']

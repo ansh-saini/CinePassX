@@ -12,30 +12,36 @@ import json
 import datetime
 from random import randint
 from django.views.decorators.csrf import csrf_exempt
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, BookForm
 
 from .models import Show
 
-# @login_required
-# def book(request):
-#     if request.method == 'POST':
-#         form = BookForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             messages.success(request, f'Your Movie has been Boooked!')
-#             return redirect('dashboard')
-
-#     else:
-#         form = UserRegisterForm()
-#     return render(request, 'main/register.html', {'form': form})
+@login_required
+def book(request):
+	if request.user.profile.subscribed:
+		if request.method == 'POST':	
+			date = datetime.datetime.now()
+			formated_date = date.strftime("%Y-%m-%d")
+			shows = Show.objects.filter(date=formated_date)
+			form = BookForm(request.POST)
+			print("owo")
+			print(form)
+			username = form.cleaned_data.get('username')
+			messages.success(request, f'Your Movie has been Boooked!')
+			return redirect('dashboard')
+		else:
+			form = BookForm()
+		return render(request, 'main/book.html', {'form': form})
+	else:
+		messages.error(request, f'Please buy a Subscription First!')
+		return redirect('dashboard')
 
 
 @login_required
 def dashboard(request):
 	date = datetime.datetime.now()
-	formated_date = date.strftime("%d-%m-%y")
-	shows = Show.objects.filer(date=formated_date)
+	formated_date = date.strftime("%Y-%m-%d")
+	shows = Show.objects.filter(date=formated_date)
 	return render(request, 'main/dashboard.html', {'shows': shows, 'date': formated_date})
 
 def home(request):
