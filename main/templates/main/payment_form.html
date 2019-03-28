@@ -1,30 +1,12 @@
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" >
-    <script id="bolt" src="https://sboxcheckout-static.citruspay.com/bolt/run/bolt.min.js" bolt-
-color="#000000" bolt-logo=""></script>
-<!--   <script type="text/javascript">
-    var hash = "{{ hashh }}";
-    function submitPayuForm() {
-      if(hash =='') {
-        return;
-      }
-      var payuForm = document.forms.payuForm;
-      payuForm.submit();
-    }
-  </script> -->
-  </head>
-  <body>
-    <h2>PayU Form</h2>
-    <br/>
+{% extends "main/base.html" %}
+{% block content %}
+    <div class="content-section">
+    <h3>Please proceed to the payment portal</h3>
     {% if error %}
-	
       <span style="color:red">Please fill all mandatory fields.</span>
-      <br/>
-      <br/>
-      {% endif %}
+    {% endif %}
      
-<form action="{{ action }}"  name="payuForm" method="post">    
+<form action="{{ action }}" name="payuForm" method="post">    
     {% csrf_token %}        
     <input type="hidden" name="key" value="{{ key }}" />            
     <input type="hidden" name="hash" value="{{ hash }}"/>            
@@ -81,6 +63,5 @@ color="#000000" bolt-logo=""></script>
         </div>
     </div>
 </form>
-  </body>
-</html>
-
+</div>
+{% endblock content %}

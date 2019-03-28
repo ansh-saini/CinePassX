@@ -13,5 +13,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='main/logout.html'), name = 'logout'),
     path('success/', main_views.payment_success, name = 'payment_success'),
     path('failure/', main_views.payment_failure, name = 'payment_failure'),
-    path('book/', main_views.book, name = 'book-show')
+    path('book/', main_views.book, name = 'book-show'),
+    path('terms/', main_views.terms, name = 'terms'),
+    # path('mail-subscribe/', main_views.mail_subscribe, name = 'mail-subscribe'),
 ]

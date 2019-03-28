@@ -41,7 +41,7 @@
     {% if home %}
         <nav class="mainmenu-area-home" data-spy="affix" data-offset-top="200">
     {% else %}
-        <nav class="mainmenu-area" data-spy="affix" data-offset-top="200">
+        <nav class="mainmenu-area" data-spy="affix" data-offset-top="10">
     {% endif %}
         <div class="container-fluid">
             <div class="navbar-header">
@@ -54,11 +54,10 @@
             </div>
             <div class="collapse navbar-collapse" id="primary_menu">
                 <ul class="nav navbar-nav mainmenu" >
-                    <li class="active">
-                      <a href="{% url 'home' %}" >Home</a></li>
+                    <li><a href="{% url 'home' %}">Home</a></li>
                     <li><a href="{% url 'book-show' %}">Book Tickets</a></li>
-                    <li><a href="#contact_page">About</a></li>
-                    <li><a href="#contact_page">Upload Bills</a></li>
+<!--                     <li><a href="#contact_page">About</a></li>
+                        <li><a href="#contact_page">Upload Bills</a></li> -->
                     <li><a href="#contact_page">Contact Us</a></li>
                 </ul>
                 {% if user.is_authenticated %}
@@ -77,7 +76,7 @@
     {% if home %}
         <div class='content'>
     {% else %}
-        <div class='content' style="margin-top: 150px;">
+        <div class='content' style="margin-top: 150px; margin-left: 20px;">
     {% endif %}
         {% if messages %}
           {% for message in messages %}
@@ -90,6 +89,7 @@
     </div>
 
     <!-- Footer-Area -->
+
     <footer class="footer-area" id="contact_page">
         <div class="section-padding">
             <div class="container">
@@ -133,14 +133,13 @@
                 </div>
             </div>
         </div>
-
         <!-- Footer-Bootom -->
         <div class="footer-bottom">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-md-5">
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            <span>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="lnr lnr-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></span>
+            <span>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved<!--  | This template is made with <i class="lnr lnr-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> --></span>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         <div class="space-30 hidden visible-xs"></div>
                     </div>

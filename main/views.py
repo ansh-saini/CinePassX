@@ -52,6 +52,9 @@ def home(request):
 	home = True
 	return render(request, 'main/home.html', {'home': home})
 
+def terms(request):
+	return render(request, 'main/terms.html')
+
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
