@@ -13,7 +13,7 @@ import datetime
 from random import randint
 from django.views.decorators.csrf import csrf_exempt
 from .forms import UserRegisterForm, BookForm
-
+from django.contrib.auth.models import User
 from .models import Show
 
 @login_required
@@ -56,17 +56,20 @@ def terms(request):
 	return render(request, 'main/terms.html')
 
 def register(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Your Account has been Created!')
-            return redirect('login')
-
-    else:
-        form = UserRegisterForm()
-    return render(request, 'main/register.html', {'form': form})
+	if request.method == 'POST':
+		form = UserRegisterForm(request.POST)
+		if form.is_valid():
+			phone = form.cleaned_data.get('phone')
+			username = form.cleaned_data.get('username')
+			form.save()
+			user = User.objects.get(username=username)
+			user.profile.phone = phone
+			user.profile.save()
+			messages.success(request, f'Your Account has been Created!')
+			return redirect('login')
+	else:
+		form = UserRegisterForm()
+	return render(request, 'main/register.html', {'form': form})
 
 @login_required
 def payment(request):   
