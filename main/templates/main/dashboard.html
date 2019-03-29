@@ -9,20 +9,20 @@
             <div class="space-60"></div>
               <div class="row">
               {% for show in shows %}
-              <div class="col-xs-6 col-sm-6 col-lg-3 col-md-3 customPoster">
-                      <figure class="mobile-image wow fadeInUp" data-wow-delay="0.3s">
-                          <div class="show-title">{{ show.movie.title }}</div>
-                          <div class="show-date">{{ show.time|date:'D, d M' }}</div>
-                          <div class="show-time">{{ show.time|date:'g:i A' }}</div>
-                          <img src="{% static 'main/images/four.jpg' %}" alt="">
-                          <a href="/cinema_select"></a>
-                      </figure>
-                    </div>
-              {% endfor %}
-                    </div>
+              <div class="col-xs-6 col-sm-6 col-lg-3 col-md-3 custom-poster">
+                    <figure class="mobile-image wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="show-title">{{ show.movie.title }}</div>
+                        <div class="show-date">{{ show.time|date:'D, d M' }}</div>
+                        <div class="show-time">{{ show.time|date:'g:i A' }}</div>
+                        <img src="{{ show.movie.image.url }}" alt="movie_image">
+                        <a href="/cinema_select"></a>
+                    </figure>
                 </div>
+              {% endfor %}
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
       <!--Movies-Area -->
 

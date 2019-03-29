@@ -91,7 +91,7 @@
                         <div class="show-title">{{ show.movie.title }}</div>
                         <div class="show-date">{{ show.time|date:'D, d M' }}</div>
                         <div class="show-time">{{ show.time|date:'g:i A' }}</div>
-                        <img src="{% static 'main/images/four.jpg' %}" alt="">
+                        <img src="{{ show.movie.image.url }}" alt="">
                         <a href="/cinema_select"></a>
                     </figure>
                 </div>

@@ -1,11 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from PIL import Image
 
 class Movie(models.Model):
 	title = models.CharField(max_length=50, blank=False)
 	tag = models.CharField(max_length=50, blank=False)
-	language = models.CharField(max_length=10, blank=False)
+	image = models.ImageField(default='default.jpg', upload_to='movie_thumbnails')
+	LANGUAGE_CHOICES = (
+		('hindi', 'Hindi'),
+		('english', 'English'),
+	)
+	language = models.CharField(max_length=10, blank=False, choices=LANGUAGE_CHOICES)
+	DIMENSION_CHOICES = (
+		('2d', '2D'),
+		('3d', '3D'),
+	)
+	dimension = models.CharField(max_length=2, default='2d', blank=False, choices=DIMENSION_CHOICES)
 
 	def __str__(self):
 		return self.title
