@@ -31,11 +31,19 @@ class Profile(models.Model):
 	phone = models.CharField(max_length=10, blank=False)
 	subscribed = models.BooleanField(default=False, blank=True)
 	booked_show = models.BooleanField(default=False, blank=True)
+	# mail_subscribed = models.BooleanField(default=False, blank=True)
 	# show = models.OneToOneField(Show, on_delete=models.SET_DEFAULT, default=None)
 	# location = models.CharField(max_length=30, blank=True)
 
 	def __str__(self):
 		return self.user.username
+
+class MailSubscriber(models.Model):
+	email = models.EmailField(unique=True)
+
+	def __str__(self):
+		return self.email
+
 
 #Signals
 from django.db.models.signals import post_save

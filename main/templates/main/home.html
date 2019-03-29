@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
     <!-- Home-Area -->
@@ -12,10 +13,11 @@
                 </div>
                 <div class="col-xs-12 col-md-7">
                     <div class="space-80 hidden-xs"></div>
-                    <h1 class="wow fadeInUp" data-wow-delay="0.4s">Watch unlimited movies at a cinema near you.</h1>
+                    <h1 class="wow fadeInUp" data-wow-delay="0.4s">Watch unlimited* movies at a cinema near you.</h1>
                     <div class="space-20"></div>
                     <div class="desc wow fadeInUp" data-wow-delay="0.6s">
-                        <p>Do you like to watch movies? This is by far the best deal on the market that you can avail. <a href="{% url 'terms' %}"> T&C applied.</a></p>
+                        <p>Do you like to watch movies? This is by far the best deal on the market that you can avail.</p>
+                        <p><a href="{% url 'terms' %}">* T&C applied.</a></p>
                     </div>
                     <div class="space-20"></div>
                     <a href="#price_page" class="bttn-white wow fadeInUp" data-wow-delay="0.8s"><i class="lnr lnr-download"></i>Subscribe</a>
@@ -75,8 +77,31 @@
         </div>
     </section>
     <!--Price-Area-End -->
+
+
+<section class="section-padding price-area" id="price_page">
+  <div class="container">
+      <div class="page-title text-center">
+          <h4 class="title">Today's Shows</h4>
+            <div class="space-60"></div>
+              <div class="row">
+              {% for show in shows %}
+              <div class="col-xs-6 col-sm-6 col-lg-3 col-md-3 customPoster">
+                    <figure class="mobile-image wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="show-title">{{ show.movie.title }}</div>
+                        <div class="show-date">{{ show.time|date:'D, d M' }}</div>
+                        <div class="show-time">{{ show.time|date:'g:i A' }}</div>
+                        <img src="{% static 'main/images/four.jpg' %}" alt="">
+                        <a href="/cinema_select"></a>
+                    </figure>
+                </div>
+              {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
     <!-- Download-Area -->
-    <div class="download-area overlay"  style="background-image: url('{% static 'main/images/download-bg.jpg' %})">
+ <!--    <div class="download-area overlay"  style="background-image: url('{% static 'main/images/download-bg.jpg' %})">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 hidden-sm">
@@ -89,13 +114,13 @@
                     <div class="space-20"></div>
                     <p>Download our android app for a btter experience.</p>
                     <div class="space-60"></div>
- <!--                    <a href="#" class="bttn-white sq"><img src="{% static 'main/images/apple-icon.png' %}" alt="apple icon"> Apple Store</a> -->
+                     <a href="#" class="bttn-white sq"><img src="{% static 'main/images/apple-icon.png' %}" alt="apple icon"> Apple Store</a> 
                     <a href="#" class="bttn-white sq"><img src="{% static 'main/images/play-store-icon.png' %}" alt="Play Store Icon"> Play Store</a>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Download-Area-End -->
+ Download-Area-End -->
     <!-- Subscribe-Form -->
     <div class="subscribe-area section-padding" style="background: url('{% static 'main/images/subscribe-bg.jpg' %}') no-repeat scroll center center / cover">
         <div class="container">
@@ -104,8 +129,9 @@
                     <div class="subscribe-form text-center">
                         <h3 class="blue-color">Subscribe to our Emails</h3>
                         <div class="space-20"></div>
-                        <form id="mc-form" action="/mail-subscribe/">
-                            <input type="email" class="control" placeholder="Enter your email" required="required" id="mc-email">
+                        <form method="POST" id="" action="/mail-subscribe/">
+                            {{ form.email.errors }}
+                            {{ form.email }}
                             <button class="bttn-white active" type="submit"><span class="lnr lnr-location"></span>Subscribe</button>
                             <label class="mt10" for="mc-email"></label>
                         </form>

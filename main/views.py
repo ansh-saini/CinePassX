@@ -1,20 +1,19 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 import logging, traceback
-from . import CONSTANTS as constants
-from . import CONFIG as config
 import hashlib
 import requests
 import json
 import datetime
 from random import randint
-from django.views.decorators.csrf import csrf_exempt
-from .forms import UserRegisterForm, BookForm
-from django.contrib.auth.models import User
-from .models import Show
+from .forms import UserRegisterForm, BookForm, MailSubscriberForm
+from .models import Show, MailSubscriber
+from . import CONSTANTS as constants
+from . import CONFIG as config
 
 @login_required
 def book(request):
@@ -37,7 +36,7 @@ def book(request):
 				form = BookForm()
 			return render(request, 'main/book.html', {'form': form})
 	else:
-		messages.error(request, f'Please buy a Subscription First!')
+		messages.error(request, 'Please <a href="/payment">Click Here</a> to buy a Subscription First!', extra_tags='safe')
 		return redirect('dashboard')
 
 
@@ -50,10 +49,25 @@ def dashboard(request):
 
 def home(request):
 	home = True
-	return render(request, 'main/home.html', {'home': home})
+	form = MailSubscriberForm()
+	date = datetime.datetime.now()
+	formated_date = date.strftime("%Y-%m-%d")
+	shows = Show.objects.filter(date=formated_date)
+	return render(request, 'main/home.html', {'home': home, 'form': form, 'shows': shows, 'date': formated_date})
 
 def terms(request):
 	return render(request, 'main/terms.html')
+
+@csrf_exempt
+def mail_subscribe(request):
+	if request.method == 'POST':
+		form = MailSubscriberForm(request.POST)
+		if form.is_valid():
+			MailSubscriber.objects.create(email=form.cleaned_data.get('email'))
+			messages.success(request, f'You are now subscribed to our emails!')
+		else:
+			form = MailSubscriberForm()
+	return redirect('home')
 
 def register(request):
 	if request.method == 'POST':

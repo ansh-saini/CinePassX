@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile, Show
+from .models import Profile, Show, MailSubscriber
 import datetime
 
 class UserRegisterForm(UserCreationForm):
@@ -19,3 +19,10 @@ class BookForm(forms.Form):
 	
 	class Meta:
 		fields = ['show']
+
+class MailSubscriberForm(forms.ModelForm):
+	email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'control', 'id': 'mc-email'}))
+	
+	class Meta:
+		model = MailSubscriber
+		fields = ['email']

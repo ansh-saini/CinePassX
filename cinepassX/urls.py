@@ -5,7 +5,7 @@ from main import views as main_views
 
 urlpatterns = [ 
     path('admin/', admin.site.urls),
-    path('home/', main_views.home, name = 'home'), 
+    path('', main_views.home, name = 'home'), 
     path('dashboard/', main_views.dashboard, name = 'dashboard'),    
     path('payment/', main_views.payment, name = 'payment'),
     path('register/', main_views.register, name = 'register'),
@@ -15,5 +15,5 @@ urlpatterns = [
     path('failure/', main_views.payment_failure, name = 'payment_failure'),
     path('book/', main_views.book, name = 'book-show'),
     path('terms/', main_views.terms, name = 'terms'),
-    # path('mail-subscribe/', main_views.mail_subscribe, name = 'mail-subscribe'),
+    path('mail-subscribe/', main_views.mail_subscribe, name = 'mail-subscribe'),
 ]
