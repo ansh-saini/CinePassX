@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <p>We currently only operate in North-West Delhi (Rohini/Pitampura).<p>
+    <p>But <b>Stay Tuned.</b> We are working hard on covering other regions as well!<p>
+  <div class="content-section">
+    <form method="POST">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <!-- <legend class="border-bottom mb-4">Join Today</legend> -->
+        {{ form|crispy }}
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Sign Up!</button>
+      </div>
+    </form>
+    <div class="border-top pt-3">
+      <div class="text-muted">
+        Already Have an Account?
+        <a class="ml-2" href="{% url 'login' %}">Sign in</a>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

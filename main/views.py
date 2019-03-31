@@ -53,7 +53,7 @@ def home(request):
 	date = datetime.datetime.now()
 	formated_date = date.strftime("%Y-%m-%d")
 	shows = Show.objects.filter(date=formated_date)
-	return render(request, 'main/home.html', {'home': home, 'form': form, 'shows': shows, 'date': formated_date})
+	return render(request, 'main/index.html', {'home': home, 'form': form, 'shows': shows, 'date': formated_date})
 
 def terms(request):
 	return render(request, 'main/terms.html')
@@ -75,10 +75,13 @@ def register(request):
 		if form.is_valid():
 			phone = form.cleaned_data.get('phone')
 			username = form.cleaned_data.get('username')
+			print(phone)
+			print(username)
 			form.save()
 			user = User.objects.get(username=username)
 			user.profile.phone = phone
 			user.profile.save()
+			print(user)
 			messages.success(request, f'Your Account has been Created!')
 			return redirect('login')
 	else:

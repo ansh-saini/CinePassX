@@ -1,22 +1,148 @@
-{% extends "main/base.html" %}
-{% load crispy_forms_tags %}
+{% extends 'main/base.html' %}
+{% load static %}
 {% block content %}
-  <div class="content-section">
-    <form method="POST">
-      {% csrf_token %}
-      <fieldset class="form-group">
-        <!-- <legend class="border-bottom mb-4">Log In</legend> -->
-        {{ form|crispy }}
-      </fieldset>
-      <div class="form-group">
-        <button class="btn btn-outline-info" type="submit">Login</button>
-      </div>
-    </form>
-    <div class="border-top pt-3">
-      <div class="text-muted">
-        Need an Account?
-        <a class="ml-2" href="{% url 'register' %}">Register Here</a>
-      </div>
+
+    <div class="loading">
+        <div class="loading-inner">
+            <div class="loading-effect">
+                <div class="object"></div>
+            </div>
+        </div>
     </div>
-  </div>
+
+
+    <div class="wrapper">
+        <main class="login-register-page" style="background-image: url({% static 'main/images/posters/movie-collection.jpg' %})">
+            <div class="container">
+
+                <div class="small-dialog login-register">
+
+                    <div class="signin-wrapper">
+                        <div class="small-dialog-headline">
+                            <h4 class="text-center">Sign in</h4>
+                        </div>
+                        <div class="small-dialog-content">
+
+                            <form id="cariera_login" method="post" action="/login/">
+                                <p class="status"></p>
+                                {% csrf_token %}
+                                {{ form.non_field_errors }}
+                                {{ form.source.errors }}
+                                {{ form.source }}
+                                <div class="form-group">
+                                    <label for="username">{{form.username.label}}</label>
+                                        {{ form.username }}
+                                        {{ form.username.errors }}
+                                        {{ form.username.help_text }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">{{form.password.label}}</label>
+                                        {{ form.password }}
+                                        {{ form.password.errors }}
+                                        {{ form.password.help_text }}
+                                </div>
+<!--                                 <div class="form-group">
+                                    <div class="checkbox pad-bottom-10">
+                                        <input id="check1" type="checkbox" name="remember" value="yes">
+                                        <label for="check1">Keep me signed in</label>
+                                    </div>
+                                </div> -->
+                                <div class="form-group">
+                                    <input type="submit" value="Sign in" class="btn btn-main btn-effect nomargin" />
+                                </div>
+                            </form>
+                            <div class="bottom-links">
+                                <span>
+Not a member?
+<a class="signUpClick">Sign up</a>
+</span>
+                                <a class="forgetPasswordClick pull-right">Forgot Password</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="signup-wrapper">
+                        <div class="small-dialog-headline">
+                            <h4 class="text-center">Sign Up</h4>
+                        </div>
+                        <div class="small-dialog-content">
+
+                            <form id="cariera_registration" action="/register/" method="POST">
+                                {% csrf_token %}
+                                <p class="status"></p>
+                                <div class="form-group">
+                                    <label for="first_name">First Name</label>
+                                    <input name="first_name" id="movify_user_login" class="form-control" type="text" />
+                                </div><div class="form-group">
+                                    <label for="last_name">Last Name</label>
+                                    <input name="last_name" id="movify_user_login" class="form-control" type="text" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input name="username" id="movify_user_login" class="form-control" type="text" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input name="phone" id="movify_user_email" class="form-control" type="tel" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input name="email" id="movify_user_email" class="form-control" type="email" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="password1">Password</label>
+                                    <input name="password1" id="movify_password" class="form-control" type="password" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="password2">Re-Enter Password</label>
+                                    <input name="password2" id="movify_password" class="form-control" type="password" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-main btn-effect nomargin" value="Register" />
+                                </div>
+                            </form>
+
+                            <div class="bottom-links">
+                                <span>
+Already have an account?
+<a class="signInClick">Sign in</a>
+</span>
+                                <a class="forgetPasswordClick pull-right">Forgot Password</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="forgetpassword-wrapper">
+                        <div class="small-dialog-headline">
+                            <h4 class="text-center">Forgotten Password</h4>
+                        </div>
+                        <div class="small-dialog-content">
+
+                            <form id="forget_pass_form" action="#" method="post">
+                                <p class="status"></p>
+                                <div class="form-group">
+                                    <label for="password">Email Address *</label>
+                                    <input type="email" name="user_login" class="form-control" id="email3" placeholder="Email Address *" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" name="submit" value="Get New Password" class="btn btn-main btn-effect nomargin" />
+                                </div>
+                            </form>
+
+                            <div class="bottom-links">
+                                <a class="cancelClick">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <a href="{% url 'home' %}" class="text-white">Back to Home</a>
+            </div>
+        </main>
+    </div>
+
+
 {% endblock content %}

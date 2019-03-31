@@ -1,24 +1,96 @@
-{% extends "main/base.html" %}
-{% load crispy_forms_tags %}
+{% extends 'main/base.html' %}
+{% load static %}
 {% block content %}
-    <p>We currently only operate in North-West Delhi (Rohini/Pitampura).<p>
-    <p>But <b>Stay Tuned.</b> We are working hard on covering other regions as well!<p>
-  <div class="content-section">
-    <form method="POST">
-      {% csrf_token %}
-      <fieldset class="form-group">
-        <!-- <legend class="border-bottom mb-4">Join Today</legend> -->
-        {{ form|crispy }}
-      </fieldset>
-      <div class="form-group">
-        <button class="btn btn-outline-info" type="submit">Sign Up!</button>
-      </div>
-    </form>
-    <div class="border-top pt-3">
-      <div class="text-muted">
-        Already Have an Account?
-        <a class="ml-2" href="{% url 'login' %}">Sign in</a>
-      </div>
+    <div class="loading">
+        <div class="loading-inner">
+            <div class="loading-effect">
+                <div class="object"></div>
+            </div>
+        </div>
     </div>
-  </div>
+
+
+    <div class="wrapper">
+        <main class="register-page" style="background-image: url({% static 'main/images/posters/movie-collection.jpg' %})">
+            <div class="container">
+                <div class="small-dialog login-register">
+                    <div class="signin-wrapper">
+                        <div class="small-dialog-headline">
+                            <h4 class="text-center">Sign Up</h4>
+                        </div>
+                        <div class="small-dialog-content">
+                            <form id="cariera_login" method="post" action="/register/">
+                                <p class="status"></p>
+                                {% csrf_token %}
+                                {{ form.non_field_errors }}
+                                {{ form.source.errors }}
+                                {{ form.source }}
+                                <div class="form-group">
+                                    <label for="first_name">{{form.first_name.label}}</label>
+                                        {{ form.first_name }}
+                                        {{ form.first_name.errors }}
+                                        {{ form.first_name.help_text }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="last_name">{{form.last_name.label}}</label>
+                                        {{ form.last_name }}
+                                        {{ form.last_name.errors }}
+                                        {{ form.last_name.help_text }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">{{form.username.label}}</label>
+                                        {{ form.username }}
+                                        {{ form.username.errors }}
+                                        {{ form.username.help_text }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">{{form.phone.label}}</label>
+                                        {{ form.phone }}
+                                        {{ form.phone.errors }}
+                                        {{ form.phone.help_text }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">{{form.email.label}}</label>
+                                        {{ form.email }}
+                                        {{ form.email.errors }}
+                                        {{ form.email.help_text }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="password1">{{form.password1.label}}</label>
+                                        {{ form.password1 }}
+                                        {{ form.password1.errors }}
+                                        {{ form.password1.help_text }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="password2">{{form.password2.label}}</label>
+                                        {{ form.password2 }}
+                                        {{ form.password2.errors }}
+                                        {{ form.password2.help_text }}
+                                </div>
+                                
+<!--                                 <div class="form-group">
+                                    <div class="checkbox pad-bottom-10">
+                                        <input id="check1" type="checkbox" name="remember" value="yes">
+                                        <label for="check1">Keep me signed in</label>
+                                    </div>
+                                </div> -->
+                                <div class="form-group">
+                                    <input type="submit" value="Sign Up" class="btn btn-main btn-effect nomargin" />
+                                </div>
+                            </form>
+                            <div class="bottom-links">
+                                <span>
+Already have an account?
+<a class="signInClick">Sign in</a>
+</span>
+                            </div>
+                        </div>
+                    </div>
+</div>
+                <a href="{% url 'home' %}" class="text-white">Back to Home</a>
+            </div>
+        </main>
+    </div>
+
+
 {% endblock content %}
