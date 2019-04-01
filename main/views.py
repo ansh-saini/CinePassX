@@ -11,7 +11,7 @@ import json
 import datetime
 from random import randint
 from .forms import UserRegisterForm, BookForm, MailSubscriberForm
-from .models import Show, MailSubscriber
+from .models import Show, MailSubscriber, Movie
 from . import CONSTANTS as constants
 from . import CONFIG as config
 
@@ -44,7 +44,9 @@ def book(request):
 def dashboard(request):
 	date = datetime.datetime.now()
 	formated_date = date.strftime("%Y-%m-%d")
-	shows = Show.objects.filter(date=formated_date)
+	# shows = Show.objects.filter(date=formated_date)
+	shows = Show.objects.all()
+	print(shows)
 	return render(request, 'main/dashboard.html', {'shows': shows, 'date': formated_date})
 
 def home(request):
@@ -52,11 +54,13 @@ def home(request):
 	form = MailSubscriberForm()
 	date = datetime.datetime.now()
 	formated_date = date.strftime("%Y-%m-%d")
-	shows = Show.objects.filter(date=formated_date)
-	return render(request, 'main/index.html', {'home': home, 'form': form, 'shows': shows, 'date': formated_date})
+	# shows = Show.objects.filter(date=formated_date)
+	shows = Show.objects.all()
+	# star_range = range(show.movie.rating)
+	return render(request, 'main/index.html', {'home': home, 'form': form,
+											 'shows': shows, 
+											 'date': formated_date})
 
-def terms(request):
-	return render(request, 'main/terms.html')
 
 @csrf_exempt
 def mail_subscribe(request):
@@ -68,6 +72,11 @@ def mail_subscribe(request):
 		else:
 			form = MailSubscriberForm()
 	return redirect('home')
+
+def movie_detail(request, tag):
+	movie = Movie.objects.get(tag=tag)
+	return render(request, 'main/movie-detail.html', {'movie': movie})
+
 
 def register(request):
 	if request.method == 'POST':
@@ -158,6 +167,11 @@ def payment_success(request):
 def payment_failure(request):
 	return render(request, 'main/payment_failure.html')
 
+def terms(request):
+	return render(request, 'main/terms.html')
+
+def contact_us(request):
+	return render(request, 'main/contact-us.html')
 
 # def home(request):
 # 	MERCHANT_KEY = ""

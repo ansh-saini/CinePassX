@@ -16,8 +16,10 @@ urlpatterns = [
     path('success/', main_views.payment_success, name = 'payment_success'),
     path('failure/', main_views.payment_failure, name = 'payment_failure'),
     path('book/', main_views.book, name = 'book-show'),
-    path('terms/', main_views.terms, name = 'terms'),
     path('mail-subscribe/', main_views.mail_subscribe, name = 'mail-subscribe'),
+    path('movie/<tag>', main_views.movie_detail, name = 'movie-detail'),
+    path('terms/', main_views.terms, name = 'terms'),
+    path('contact/', main_views.contact_us, name = 'contact'),
 ]
 
 if settings.DEBUG:

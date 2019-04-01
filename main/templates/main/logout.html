@@ -1,0 +1,32 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block content %}
+
+      <div class="loading">
+        <div class="loading-inner">
+            <div class="loading-effect">
+                <div class="object"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="wrapper">
+        <main class="coming-soon" style="background-image: url({% static 'main/images/posters/movie-collection.jpg' %})">
+            <div class="container">
+
+                <img src="{% static 'main/images/logo-white.svg' %}" width="200" alt="logo">
+                <h3>You have been Logged Out</h3>
+
+                <!-- <div id="countdown" class="count-down"></div> -->
+
+    <div class="text-muted">
+      <a href="{% url 'login' %}">Login Again</a>
+     </div><div>
+      <a href="{% url 'home' %}" class="text-white">Back to Home</a>
+    </div>
+            </div>    
+                
+        </main>
+    </div>
+{% endblock content %}

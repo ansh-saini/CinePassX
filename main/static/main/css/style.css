@@ -4982,7 +4982,10 @@ main .col-md-12:last-of-type .movie-list-2 {
     -moz-box-shadow: 10px 10px 40px 0 rgba(52, 58, 64, .25);
     box-shadow: 10px 10px 40px 0 rgba(52, 58, 64, .25)
 }
-
+.movie-poster img {
+   width: 200px;
+   max-height: 300px;
+}
 .movie-detail-intro2 .movie-poster:before {
     content: "";
     position: absolute;

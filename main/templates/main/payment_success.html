@@ -1,0 +1,13 @@
+{% extends "main/base.html" %}
+{% block content %}
+	<div style="display:none">
+   		<input type="hidden" name="csrfmiddlewaretoken" value="{% csrf_token %}">
+	</div>
+<h4>Thank You.</h4>
+<div>
+<p>Your order status is {{ status }}</p>
+<p>Your Transaction ID for this transaction is {{ txnid }}</p>
+<p>We have received a payment of Rs. {{ amount}}</p> 
+</div>
+
+{% endblock content %}

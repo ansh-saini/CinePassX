@@ -37,140 +37,8 @@
 
                         <ul class="navbar-nav mx-auto" id="main-menu">
 
-                            <!-- <li class="nav-item dropdown"> -->
+                             <li class="nav-item"> 
                                 <a class="nav-link" href="{% url 'home' %}" aria-haspopup="true" aria-expanded="false">Home</a>
-
-<!--                                 <ul class="dropdown-menu">
-
-                                    <li>
-                                        <a class="dropdown-item" href="index.html">Home Version 1</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="index2.html">Home Version 2</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="index3.html">Home Version 3</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="index4.html">Home Version 4</a>
-                                    </li>
-                                </ul>
-                            </li> -->
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-
-                                <ul class="dropdown-menu">
-
-                                    <li>
-                                        <a class="dropdown-item" href="404.html">404 Page</a>
-                                    </li>
-
-                                    <li class="divider" role="separator"></li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="celebrities-list.html">celebrities list</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="celebrities-grid.html">celebrities grid</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="celebrity-detail.html">celebrity detail</a>
-                                    </li>
-
-                                    <li class="divider" role="separator"></li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="contact-us.html">Contact us</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="coming-soon.html">Coming soon</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="pricing.html">Pricing Plan</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="{% url 'login' %}">Login - Register</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="testimonials.html">Testimonials</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Movies & TV Shows</a>
-
-                                <ul class="dropdown-menu">
-
-                                    <li>
-                                        <a class="dropdown-item" href="movie-list.html">Movie List 1</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="movie-list2.html">Movie List 2</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="movie-grid.html">Movie Grid 1</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="movie-grid2.html">Movie Grid 2</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="movie-grid3.html">Movie Grid 3</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="movie-grid4.html">Movie Grid 4</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="movie-detail.html">Movie Detail</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="movie-detail2.html">Movie Detail 2</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="watch-later.html">Watch Later</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blog</a>
-
-                                <ul class="dropdown-menu">
-
-                                    <li>
-                                        <a class="dropdown-item" href="blog-list.html">Blog List</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="blog-list-fullwidth.html">Blog List Fullwidth</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="blog-post-detail.html">Blog Detail</a>
-                                    </li>
-
-                                    <li>
-                                        <a class="dropdown-item" href="blog-post-detail-fullwidth.html">Blog Detail Fullwidth</a>
-                                    </li>
-                                </ul>
                             </li>
 
                             <li class="nav-item">
@@ -181,25 +49,17 @@
 
                         <ul class="navbar-nav extra-nav">
 
-<!--                             <li class="nav-item">
-                                <a class="nav-link toggle-search" href="#">
-<i class="fa fa-search"></i>
-</a>
-                            </li> -->
-
-<!--                             <li class="nav-item notification-wrapper">
-                                <a class="nav-link notification" href="#">
-<i class="fa fa-globe"></i>
-<span class="notification-count">2</span>
-</a> 
-                            </li>
-                        -->
 {% if user.is_authenticated %}
-<li class="nav-item m-auto">
-                                <a href="#" class="btn btn-main btn-effect login-btn popup-with-zoom-anim">
-<i class="icon-user"></i>{{ user.username }}
-</a>
-</li>
+<li class="nav-item dropdown">
+                                <a class="dropdown-toggle btn btn-main btn-effect login-btn popup-with-zoom-anim" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-user"></i>{{user.username}}</a>
+
+                                <ul class="dropdown-menu">
+
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                                    </li>
+
+</ul>   </li>
 {% else %}
                             <li class="nav-item m-auto">
                                 <a href="#login-register-popup" class="btn btn-main btn-effect login-btn popup-with-zoom-anim">
@@ -228,34 +88,37 @@
                             <img src="{% static 'main/images/posters/movie-collection.jpg' %}" alt="Image" title="slider-bg" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina="">
 
                             <div class="tp-caption tp-resizeme" data-x="center" data-hoffset="" data-y="middle" data-voffset="['-80','-80','-80','-80']" data-responsive_offset="on" data-fontsize="['60','50','40','30']" data-lineheight="['60','50','40','30']" data-whitespace="nowrap"
-                                data-frames='[{"delay":1000,"speed":2000,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:0;s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":500,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]' style="z-index: 5; color: #fff; font-weight: 900;">WELCOME TO movify
+                                data-frames='[{"delay":1000,"speed":2000,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:0;s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":500,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]' style="z-index: 5; color: #fff; font-weight: 900;">WELCOME TO CINEPASSX
+
+                                <h5 style="z-index: 5; color: #fff; font-weight: bold;">Still watching movies the ancient way? Aww..</h5>
+
                             </div>
 
-                            <div class="tp-caption tp-resizeme" data-x="center" data-hoffset="" data-y="middle" data-voffset="[0]" data-width="[1200, 992, 768, 98%]" data-responsive_offset="on" data-whitespace="nowrap"
-                                data-frames='[{"delay":1000,"speed":2000,"frame":"0","from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:0;s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":500,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]' style="z-index: 5; color: #fff; font-weight: 900;">
+                          
+                        
 
-                                <form id="search-form-1">
+<!--                                 <form id="search-form-1">
                                     <div class="row justify-content-center">
                                         <div class="col-md-8 col-sm-10 col-12">
                                             <div class="form-group">
-                                                <input name="search-keyword" type="text" id="search-keyword" value="" class="form-control" placeholder="Enter Movies or Series Title">
+                                                <input name="search-keyword" type="text" id="search-keyword" value="" class="form-control" placeholder="Enter Movie Title">
                                                 <button type="submit" class="btn btn-main btn-effect"><i class="fa fa-search"></i></button>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
+ -->
+                            <!-- </div> -->
 
-                            </div>
-
-                            <div class="tp-caption tp-resizeme text-center" data-x="center" data-hoffset="" data-y="middle" data-voffset="['100','100','80','80']" data-responsive_offset="on" data-fontsize="['16']" data-lineheight="['22']" data-whitespace="nowrap"
+<!--                             <div class="tp-caption tp-resizeme text-center" data-x="center" data-hoffset="" data-y="middle" data-voffset="['100','100','80','80']" data-responsive_offset="on" data-fontsize="['16']" data-lineheight="['22']" data-whitespace="nowrap"
                                 data-frames='[{"delay":1000,"speed":2000,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:0;s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":500,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]' style="z-index: 5; color: #fff; font-weight: 400;">
-                                Have a look at our top rated <br />Movies and TV Shows!
-                            </div>
+                                Have a look at our<br />top rated Movies!
+                            </div> -->
 
-                            <div class="tp-caption tp-resizeme" data-x="[730, 630, 520, 370]" data-hoffset="" data-y="middle" data-voffset="['115','115','90','500']" data-responsive_offset="on" data-fontsize="['16']" data-lineheight="['22']" data-whitespace="nowrap"
+                            <!-- <div class="tp-caption tp-resizeme" data-x="[730, 630, 520, 370]" data-hoffset="" data-y="middle" data-voffset="['115','115','90','500']" data-responsive_offset="on" data-fontsize="['16']" data-lineheight="['22']" data-whitespace="nowrap"
                                 data-frames='[{"delay":1000,"speed":2000,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:0;s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":500,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]' style="z-index: 5; color: #fff; font-weight: 400;">
                                 <img src="{% static 'main/images/other/banner-arrow.png' %}" alt="">
-</div>
+</div> -->
                         </li>
                     </ul>
                 </div>
@@ -264,11 +127,11 @@
 
         </section>
 
-
+<!--
         <section class="top-movies2">
             <div class="container">
                 <div class="row">
-
+{% for show in shows %}
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                         <div class="movie-box-4">
                             <div class="listing-container">
@@ -283,151 +146,89 @@
 <i class="icon-share"></i>
 </a>
                                     </div>
-
                                     <div class="stars">
                                         <div class="rating">
+        
+                                            
+                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i> 
                                         </div>
                                     </div>
 
-                                    <img src="{% static 'main/images/posters/poster-1.jpg' %}" alt="">
+                                    <img src="{{show.movie.image.url}}" alt="">
 </div>
 
                                     <div class="listing-content">
                                         <div class="inner">
-                                            <h2 class="title">Star Wars</h2>
-                                            <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
+                                            <h2 class="title">{{show.movie.title}}</h2>
+                                            <a href="{% url 'movie-detail' show.movie.tag %}" class="btn btn-main btn-effect">details</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+{% endfor %}
+                        
+                                </div>
+                            </div>
+        </section> 
+    -->
+        <section class="latest-releases bg-light ptb100">
+            <div class="container">
 
-                        <div class="col-lg-3 col-md-6 col-sm-6 d-none d-sm-block">
-                            <div class="movie-box-4">
-                                <div class="listing-container">
+                <div class="row justify-content-center">
+                    <div class="col-md-7 text-center">
+                        <h2 class="title">In Cinemas Right Now</h2>
+                    <!--    <h6 class="subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy consectetuer adipiscing.</h6> -->
+                    </div>
+                </div>
+            </div>
 
-                                    <div class="listing-image">
 
-                                        <div class="buttons">
-                                            <a href="#" data-original-title="Rate" data-toggle="tooltip" data-placement="bottom" class="like">
-<i class="icon-heart"></i>
-</a>
-                                            <a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom" class="share">
-<i class="icon-share"></i>
+            <div class="owl-carousel latest-releases-slider">
+{% for show in shows %}
+                <div class="item">
+                    <div class="movie-box-3">
+                        <div class="listing-container">
+
+                            <div class="listing-image">
+
+                                <img src="{{ show.movie.image.url }}" alt="">
+</div>
+
+                                <div class="listing-content">
+                                    <div class="inner">
+
+                                        <div class="play-btn">
+                                            <a href="{{ show.movie.link }}" class="play-video">
+<i class="fa fa-play"></i>
 </a>
                                         </div>
+                                        <h2 class="title">{{show.movie.title}}</h2>
 
                                         <div class="stars">
                                             <div class="rating">
                                                 <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <i class="fa fa-star-o"></i>
+                                                <span>{{show.movie.rating}}/10</span>
+                                                <span class="category">Action, Fantasy</span>
                                             </div>
                                         </div>
-
-                                        <img src="{% static 'main/images/posters/poster-2.jpg' %}" alt="">
-</div>
-
-                                        <div class="listing-content">
-                                            <div class="inner">
-                                                <h2 class="title">The Brain</h2>
-                                                <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
-                                            </div>
-                                        </div>
+                                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam...</p> -->
+                                        <a href="{% url 'movie-detail' show.movie.tag %}" class="btn btn-main btn-effect">details</a>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-lg-3 col-md-6 d-none d-lg-block">
-                                <div class="movie-box-4">
-                                    <div class="listing-container">
-
-                                        <div class="listing-image">
-
-                                            <div class="buttons">
-                                                <a href="#" data-original-title="Rate" data-toggle="tooltip" data-placement="bottom" class="like">
-<i class="icon-heart"></i>
-</a>
-                                                <a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom" class="share">
-<i class="icon-share"></i>
-</a>
-                                            </div>
-
-                                            <div class="stars">
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                            </div>
-
-                                            <img src="{% static 'main/images/posters/poster-3.jpg' %}" alt="">
-</div>
-
-                                            <div class="listing-content">
-                                                <div class="inner">
-                                                    <h2 class="title">The Mummy</h2>
-                                                    <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                        </div>
+                    </div>
+{% endfor %}
                                     </div>
-                                </div>
 
-                                <div class="col-lg-3 col-md-6 d-none d-lg-block">
-                                    <div class="movie-box-4">
-                                        <div class="listing-container">
-
-                                            <div class="listing-image">
-
-                                                <div class="buttons">
-                                                    <a href="#" data-original-title="Rate" data-toggle="tooltip" data-placement="bottom" class="like">
-<i class="icon-heart"></i>
-</a>
-                                                    <a href="#" data-original-title="Share" data-toggle="tooltip" data-placement="bottom" class="share">
-<i class="icon-share"></i>
-</a>
-                                                </div>
-
-                                                <div class="stars">
-                                                    <div class="rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-half-o"></i>
-                                                    </div>
-                                                </div>
-
-                                                <img src="{% static 'main/images/posters/poster-5.jpg' %}" alt="">
-</div>
-
-                                                <div class="listing-content">
-                                                    <div class="inner">
-                                                        <h2 class="title">Daredevil</h2>
-                                                        <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
         </section>
-
 
         <section class="how-it-works3 ptb100">
             <div class="container">
-
                 <div class="row justify-content-center">
                     <div class="col-md-7 text-center">
                         <h2 class="title">How it works?</h2>
@@ -436,13 +237,13 @@
                 </div>
 
 
-                <div class="row mt50">
+                <div class="row mt50 justify-content-center">
 
                     <div class="col-lg-4 col-sm-12">
                         <ul class="nav features-tab">
 
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" aria-controls="home" aria-expanded="false">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="{% url 'register' %}" aria-controls="home" aria-expanded="false">
 <div class="icon-wrapper">
 <i class="icon-login"></i>
 </div>
@@ -472,7 +273,7 @@
 </div>
 <div>
 <h5 class="title">Find your Movie</h5>
-<h6 class="subtitle">Search for your favorite Movie or TV Show.</h6>
+<h6 class="subtitle">Search for your favorite Movie.</h6>
 </div>
 </a>
                             </li>
@@ -483,8 +284,8 @@
 <i class="icon-emotsmile"></i>
 </div>
 <div>
-<h5 class="title">Enjoy movify</h5>
-<h6 class="subtitle">Enjoy all Movies & TV Shows in Ultra HD Resolution.</h6>
+<h5 class="title">Enjoy CinePassX</h5>
+<h6 class="subtitle">Enjoy unlimited Movies in your nearest cinema hall.</h6>
 </div>
 </a>
                             </li>
@@ -492,7 +293,7 @@
                     </div>
 
 
-                    <div class="col-lg-7 ml-auto">
+<!--                     <div class="col-lg-7 ml-auto">
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade active show" id="home" role="tabpanel" aria-expanded="false">
                                 <img src="{% static 'main/images/other/signup.png' %}" alt="">
@@ -514,7 +315,7 @@
                                 <a class="btn btn-main btn-effect" href="#">View More</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
 
@@ -522,21 +323,21 @@
         </section>
 
 
-        <section class="features">
+<!--         <section class="features">
             <div class="row">
                 <div class="col-md-6 col-sm-12 with-bg overlay-gradient" style="background: url({% static 'main/images/other/features2.jpg' %})"></div>
                 <div class="col-md-6 col-sm-12 bg-light">
                     <div class="features-wrapper">
-                        <h3 class="title">Watch all Movies & TV Shows once they get released!</h3>
+                        <h3 class="title">Watch all Movies the once they get released!</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                         <a class="btn btn-main btn-effect" href="#">View Features</a>
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
 
-        <section class="counter bg-main-gradient ptb50 text-center">
+<!--         <section class="counter bg-main-gradient ptb50 text-center">
             <div class="container">
                 <div class="row">
 
@@ -556,236 +357,10 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
 
-        <section class="latest-releases bg-light ptb100">
-            <div class="container">
 
-                <div class="row justify-content-center">
-                    <div class="col-md-7 text-center">
-                        <h2 class="title">Latest Movies & TV Shows</h2>
-                        <h6 class="subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy consectetuer adipiscing.</h6>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="owl-carousel latest-releases-slider">
-
-                <div class="item">
-                    <div class="movie-box-3">
-                        <div class="listing-container">
-
-                            <div class="listing-image">
-
-                                <img src="{% static 'main/images/posters/poster-1.jpg' %}" alt="">
-</div>
-
-                                <div class="listing-content">
-                                    <div class="inner">
-
-                                        <div class="play-btn">
-                                            <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-<i class="fa fa-play"></i>
-</a>
-                                        </div>
-                                        <h2 class="title">Star Wars</h2>
-
-                                        <div class="stars">
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <span>7.5/10</span>
-                                                <span class="category">Action, Fantasy</span>
-                                            </div>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam...</p>
-                                        <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="item">
-                        <div class="movie-box-3">
-                            <div class="listing-container">
-
-                                <div class="listing-image">
-
-                                    <img src="{% static 'main/images/posters/poster-2.jpg' %}" alt="">
-</div>
-
-                                    <div class="listing-content">
-                                        <div class="inner">
-
-                                            <div class="play-btn">
-                                                <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-<i class="fa fa-play"></i>
-</a>
-                                            </div>
-                                            <h2 class="title">The Brain</h2>
-
-                                            <div class="stars">
-                                                <div class="rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <span>7.2/10</span>
-                                                    <span class="category">Action, Comendy</span>
-                                                </div>
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam...</p>
-                                            <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="item">
-                            <div class="movie-box-3">
-                                <div class="listing-container">
-
-                                    <div class="listing-image">
-
-                                        <img src="{% static 'main/images/posters/poster-3.jpg' %}" alt="">
-</div>
-
-                                        <div class="listing-content">
-                                            <div class="inner">
-
-                                                <div class="play-btn">
-                                                    <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-<i class="fa fa-play"></i>
-</a>
-                                                </div>
-                                                <h2 class="title">The Mummy</h2>
-
-                                                <div class="stars">
-                                                    <div class="rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <span>5.5/10</span>
-                                                        <span class="category">Action, Fantasy</span>
-                                                    </div>
-                                                </div>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam...</p>
-                                                <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="item">
-                                <div class="movie-box-3">
-                                    <div class="listing-container">
-
-                                        <div class="listing-image">
-
-                                            <img src="{% static 'main/images/posters/poster-5.jpg' %}" alt="">
-</div>
-
-                                            <div class="listing-content">
-                                                <div class="inner">
-
-                                                    <div class="play-btn">
-                                                        <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
- <i class="fa fa-play"></i>
-</a>
-                                                    </div>
-                                                    <h2 class="title">Daredevil</h2>
-
-                                                    <div class="stars">
-                                                        <div class="rating">
-                                                            <i class="fa fa-star"></i>
-                                                            <span>8.7/10</span>
-                                                            <span class="category">Action, Crime</span>
-                                                        </div>
-                                                    </div>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam...</p>
-                                                    <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="item">
-                                    <div class="movie-box-3">
-                                        <div class="listing-container">
-
-                                            <div class="listing-image">
-
-                                                <img src="{% static 'main/images/posters/poster-6.jpg' %}" alt="">
-</div>
-
-                                                <div class="listing-content">
-                                                    <div class="inner">
-
-                                                        <div class="play-btn">
-                                                            <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-<i class="fa fa-play"></i>
-</a>
-                                                        </div>
-                                                        <h2 class="title">Stranger Things</h2>
-
-                                                        <div class="stars">
-                                                            <div class="rating">
-                                                                <i class="fa fa-star"></i>
-                                                                <span>9.0/10</span>
-                                                                <span class="category">Fantasy, Horror</span>
-                                                            </div>
-                                                        </div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam...</p>
-                                                        <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="item">
-                                        <div class="movie-box-3">
-                                            <div class="listing-container">
-
-                                                <div class="listing-image">
-
-                                                    <img src="{% static 'main/images/posters/poster-8.jpg' %}" alt="">
-</div>
-
-                                                    <div class="listing-content">
-                                                        <div class="inner">
-
-                                                            <div class="play-btn">
-                                                                <a href="https://www.youtube.com/watch?v=Q0CbN8sfihY" class="play-video">
-<i class="fa fa-play"></i>
-</a>
-                                                            </div>
-                                                            <h2 class="title">The Flash</h2>
-
-                                                            <div class="stars">
-                                                                <div class="rating">
-                                                                    <i class="fa fa-star"></i>
-                                                                    <span>8.0/10</span>
-                                                                    <span class="category">Action, Drama</span>
-                                                                </div>
-                                                            </div>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam...</p>
-                                                            <a href="movie-detail.html" class="btn btn-main btn-effect">details</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-        </section>
 
 
         <section class="upcoming-movies parallax ptb100" data-background="{% static 'main/images/posters/movie-collection.jpg' %}" data-color="#3e4555" data-color-opacity="0.95">
@@ -793,7 +368,7 @@
 
                 <div class="row justify-content-center">
                     <div class="col-md-7 text-center">
-                        <h2 class="title text-white">Upcoming Movies & TV Shows</h2>
+                        <h2 class="title text-white">Upcoming Movies</h2>
                     </div>
                 </div>
 
@@ -914,7 +489,7 @@
                                         <li>Desktop Only</li>
                                         <li>Limited Support</li>
                                     </ul>
-                                    <a class="btn btn-main btn-effect mt30" href="#">Get Started</a>
+                                    <a class="btn btn-main btn-effect mt30" href="/payment/">Get Started</a>
                                 </div>
                             </div>
 
@@ -922,19 +497,19 @@
 
                                 <div class="plan-price">
                                     <h3>Premium</h3>
-                                    <span class="value">$19</span>
-                                    <span class="period">Most wanted subscription package by our Movifiers.</span>
+                                    <span class="value">Rs. 399</span>
+                                    <span class="period">Most wanted subscription package by our users.</span>
                                 </div>
 
                                 <div class="plan-features">
                                     <ul>
                                         <li>1 Month</li>
-                                        <li>Full HD</li>
+                                        <li>Unlimited Movies</li>
                                         <li>Lifetime Availability</li>
-                                        <li>TV & Desktop</li>
+                                        <li>Cinemas Near You</li>
                                         <li>24/7 Support</li>
                                     </ul>
-                                    <a class="btn btn-main btn-effect mt30" href="#">Get Started</a>
+                                    <a class="btn btn-main btn-effect mt30" href="/payment/">Get Started</a>
                                 </div>
                             </div>
 
@@ -953,7 +528,7 @@
                                         <li>Any Device</li>
                                         <li>24/7 Support</li>
                                     </ul>
-                                    <a class="btn btn-main btn-effect mt30" href="#">Get Started</a>
+                                    <a class="btn btn-main btn-effect mt30" href="/payment/">Get Started</a>
                                 </div>
                             </div>
                         </div>
@@ -965,7 +540,7 @@
         </section>
 
 
-        <section class="blog bg-light ptb100">
+        <!-- <section class="blog bg-light ptb100">
             <div class="container">
 
                 <div class="row justify-content-center">
@@ -1058,7 +633,7 @@
                 </div>
 
             </div>
-        </section>
+        </section> -->
 
 
         <section class="subscribe bg-light2 ptb100">
@@ -1071,14 +646,15 @@
 </div>
                         </div>
                         <div class="col-md-6 col-12 mt50">
-                            <h2 class="title">Join movify Now!</h2>
-                            <h6 class="subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy consectetuer adipiscing.</h6>
+                            <h2 class="title">Join CinepassX Now!</h2>
+                            <h6 class="subtitle">Subscribe to our emails and we'll keep your posted with latest movies. No Spam, We Promise.</h6>
 
-                            <form action="#" class="mailchimp mt50" novalidate>
+                            <form method="POST" action="/mail-subscribe/" class="mt50">
 
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <input type="email" name="EMAIL" class="form-control" id="mc-email" placeholder="Your Email" autocomplete="off">
+                                        <input type="email" name="email" class="form-control" id="mc-email" placeholder="Your Email" autocomplete="off">
+                                        {% csrf_token %}
                                         <label for="mc-email"></label>
                                         <button type="submit" class="btn btn-main btn-effect">Subscribe</button>
                                     </div>
@@ -1112,17 +688,17 @@
                             <div class="widget widget-links">
                                 <h4 class="widget-title">Useful links</h4>
                                 <ul class="general-listing">
-                                    <li><a href="#">about movify</a></li>
-                                    <li><a href="#">blog</a></li>
-                                    <li><a href="#">forum</a></li>
+                                    <li><a href="#">about cinepassX</a></li>
+                                    <!-- <li><a href="#">blog</a></li> -->
+                                    <!-- <li><a href="#">forum</a></li> -->
                                     <li><a href="#">my account</a></li>
-                                    <li><a href="#">watch list</a></li>
+                                    <!-- <li><a href="#">watch list</a></li> -->
                                 </ul>
                             </div>
                         </div>
 
 
-                        <div class="col-lg-3 col-md-6 col-sm-12">
+<!--                         <div class="col-lg-3 col-md-6 col-sm-12">
                             <div class="widget widget-blog">
                                 <h4 class="widget-title">latest news</h4>
                                 <ul class="blog-posts">
@@ -1131,7 +707,7 @@
                                     <li><a href="#">blog post 3</a><small>januar 13, 2018</small></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
 
 
                         <div class="col-lg-3 col-md-6 col-sm-12">
@@ -1150,23 +726,23 @@
 </a>
                                     </li>
 
-                                    <li>
+<!--                                     <li>
                                         <a href="#" class="social-btn-roll twitter">
 <div class="social-btn-roll-icons">
 <i class="social-btn-roll-icon fa fa-twitter"></i>
 <i class="social-btn-roll-icon fa fa-twitter"></i>
 </div>
 </a>
-                                    </li>
+                                    </li> -->
 
-                                    <li>
+<!--                                     <li>
                                         <a href="#" class="social-btn-roll google-plus">
 <div class="social-btn-roll-icons">
 <i class="social-btn-roll-icon fa fa-google-plus"></i>
 <i class="social-btn-roll-icon fa fa-google-plus"></i>
 </div>
 </a>
-                                    </li>
+                                    </li> -->
 
                                     <li>
                                         <a href="#" class="social-btn-roll instagram">
@@ -1194,12 +770,12 @@
                                 <div class="links">
                                     <ul class="list-inline">
                                         <li class="list-inline-item"><a href="#">Privacy & Cookies</a></li>
-                                        <li class="list-inline-item"><a href="#">Terms & Conditions</a></li>
+                                        <li class="list-inline-item"><a href="{% url 'terms' %}">Terms & Conditions</a></li>
                                         <li class="list-inline-item"><a href="#">Legal Disclaimer</a></li>
                                         <li class="list-inline-item"><a href="#">Community</a></li>
                                     </ul>
                                 </div>
-                                <div class="copyright ml-auto">All Rights Reserved by <a href="#">movify</a>.</div>
+                                <div class="copyright ml-auto">All Rights Reserved by <a href="#">cinepassX</a>.</div>
                             </div>
                         </div>
                     </div>
@@ -1231,19 +807,19 @@
                     <p class="status"></p>
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="username">Username or Email *</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Your Username or Email *" />
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Your Username" />
                     </div>
                     <div class="form-group">
-                        <label for="password">Password *</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Your Password *" />
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Your Password" />
                     </div>
-                    <div class="form-group">
+<!--                     <div class="form-group">
                         <div class="checkbox pad-bottom-10">
                             <input id="check1" type="checkbox" name="remember" value="yes">
                             <label for="check1">Keep me signed in</label>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <input type="submit" value="Sign in" class="btn btn-main btn-effect nomargin" />
                     </div>
@@ -1266,19 +842,36 @@ Not a member?
             </div>
             <div class="small-dialog-content">
 
-                <form id="cariera_registration" action="#" method="POST">
+                <form id="cariera_registration" action="/register/" method="POST">
+                    {% csrf_token %}
                     <p class="status"></p>
                     <div class="form-group">
-                        <label for="movify_user_login">Username</label>
-                        <input name="movify_user_login" id="movify_user_login" class="form-control" type="text" />
+                        <label for="first_name">First Name</label>
+                        <input name="first_name" id="movify_user_login" class="form-control" type="text" />
                     </div>
                     <div class="form-group">
-                        <label for="movify_user_email">Email</label>
-                        <input name="movify_user_email" id="movify_user_email" class="form-control" type="email" />
+                        <label for="last_name">Last Name</label>
+                        <input name="last_name" id="movify_user_login" class="form-control" type="text" />
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input name="movify_user_pass" id="movify_password" class="form-control" type="password" />
+                        <label for="username">Username</label>
+                        <input name="username" id="movify_user_login" class="form-control" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input name="phone" id="movify_user_login" class="form-control" type="tel" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input name="email" id="movify_user_email" class="form-control" type="email" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password1">Password</label>
+                        <input name="password1" id="movify_password" class="form-control" type="password" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">Re-Enter Password</label>
+                        <input name="password2" id="movify_password" class="form-control" type="password" />
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-main btn-effect nomargin" value="Register" />
@@ -1290,7 +883,7 @@ Not a member?
 Already have an account?
 <a class="signInClick">Sign in</a>
 </span>
-                    <a class="forgetPasswordClick pull-right">Forgot Password</a>
+                    
                 </div>
             </div>
         </div>
@@ -1302,11 +895,11 @@ Already have an account?
             </div>
             <div class="small-dialog-content">
 
-                <form id="forget_pass_form" action="#" method="post">
+                <form id="forget_pass_form" action="/forgot-password/" method="post">
                     <p class="status"></p>
                     <div class="form-group">
-                        <label for="password">Email Address *</label>
-                        <input type="email" name="user_login" class="form-control" id="email3" placeholder="Email Address *" />
+                        <label for="email">Email Address *</label>
+                        <input type="email" name="email" class="form-control" id="email3" placeholder="Email Address" />
                     </div>
                     <div class="form-group">
                         <input type="submit" name="submit" value="Get New Password" class="btn btn-main btn-effect nomargin" />

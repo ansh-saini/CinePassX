@@ -10,13 +10,16 @@ class Movie(models.Model):
 		('hindi', 'Hindi'),
 		('english', 'English'),
 	)
-	language = models.CharField(max_length=10, blank=False, choices=LANGUAGE_CHOICES)
+	language = models.CharField(max_length=10, blank=True, choices=LANGUAGE_CHOICES)
 	DIMENSION_CHOICES = (
 		('2d', '2D'),
 		('3d', '3D'),
 	)
 	dimension = models.CharField(max_length=2, default='2d', blank=False, choices=DIMENSION_CHOICES)
-
+	rating = models.IntegerField(null=True, blank=True)
+	link = models.CharField(null=True, max_length=50, blank=True)
+	
+	
 	def __str__(self):
 		return self.title
 
