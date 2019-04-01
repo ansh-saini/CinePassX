@@ -16,7 +16,7 @@ from . import CONSTANTS as constants
 from . import CONFIG as config
 
 @login_required
-def book(request):
+def book(request, tag):
 	if request.user.profile.subscribed:
 		if request.user.profile.booked_show:
 			messages.error(request, f'You have already booked a show today!')

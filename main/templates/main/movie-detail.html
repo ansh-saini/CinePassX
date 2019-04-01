@@ -23,9 +23,9 @@
                 <nav class="navbar navbar-expand-lg">
                     <a class="navbar-brand" href="{% url 'home' %}">
 
-<img src="{% static 'main/images/logo.svg' %}" alt="logo" width="150" class="logo">
+<img src="{% static 'main/images/logo.png' %}" alt="logo" width="150" class="logo">
 
-<img src="{% static 'main/images/logo-white.svg' %}" alt="white logo" width="150" class="logo-white">
+<img src="{% static 'main/images/logo-white.png' %}" alt="white logo" width="150" class="logo-white">
 </a>
                     <button id="mobile-nav-toggler" class="hamburger hamburger--collapse" type="button">
                         <span class="hamburger-box">
@@ -88,7 +88,7 @@
                         <div class="movie-poster">
                             <img src="{{movie.image.url}}" alt="">
                             <a href="{{movie.link}}">
-<i class="fa fa-play"></i>
+<!-- <i class="fa fa-play"></i> -->
 </a>
                         </div>
                         <div class="movie-details">
@@ -100,7 +100,7 @@
                                 <li>15 December 2017 (USA)</li>
                             </ul>
                             <a href="{{ movie.link }}" class="btn btn-main btn-effect">trailer</a>
-                            <a href="#" class="btn btn-main btn-effect">watch later</a>
+                            <a href="{% url 'book-show' movie.tag %}" class="btn btn-main btn-effect">book now</a>
                             <a href="#" class="btn rate-movie"><i class="icon-heart"></i></a>
                             <div class="rating mt10">
                                 <i class="fa fa-star"></i>
@@ -248,7 +248,7 @@
         </section>
 
 
-        <section class="recommended-movies bg-light ptb100">
+<!--         <section class="recommended-movies bg-light ptb100">
             <div class="container">
 
                 <div class="row">
@@ -502,7 +502,7 @@
                                         </div>
 
                                     </div>
-        </section>
+        </section> -->
 
 
         <footer class="footer1 bg-dark">
@@ -514,9 +514,9 @@
                         <div class="col-lg-3 col-md-6 col-sm-12">
                             <div class="widget widget-about">
 
-                                <img src="{% static 'main/images/logo.svg' %}" alt="logo" class="logo">
+                                <img src="{% static 'main/images/logo.png' %}" alt="logo" class="logo">
 
-                                <img src="{% static 'main/images/logo-white.svg' %}" alt="white logo" class="logo-white">
+                                <img src="{% static 'main/images/logo-white.png' %}" alt="white logo" class="logo-white">
                                 <p class="nomargin">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, ducimus, atque. Praesentium suscipit provident explicabo dignissimos nostrum numquam deserunt earum accusantium et fugit.</p>
                             </div>
                         </div>
