@@ -86,21 +86,23 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="movie-poster">
-                            <img src="{{movie.image.url}}" alt="">
-                            <a href="{{movie.link}}">
+                            <img src="{{data.Poster}}" alt="">
+                            <a href="{{data.Website}}">
 <!-- <i class="fa fa-play"></i> -->
 </a>
                         </div>
                         <div class="movie-details">
-                            <h3 class="title">{{ movie.title }}</h3>
+                            <h3 class="title">{{ data.Title }}</h3>
                             <ul class="movie-subtext">
-                                <li>PG-13</li>
-                                <li>2h 32min</li>
-                                <li>Action, Adventure, Fantasy</li>
-                                <li>15 December 2017 (USA)</li>
+                                <li>{{ data.Rated }}</li>
+                                <li>{{ data.Runtime }}</li>
+                                <li>{{ data.Genre }}</li>
+                                <li>{{ data.Released }} ({{ data.Country }})</li>
                             </ul>
-                            <a href="{{ movie.link }}" class="btn btn-main btn-effect">trailer</a>
-                            <a href="{% url 'book-show' movie.tag %}" class="btn btn-main btn-effect">book now</a>
+                            <form>
+
+                            <a href="{% url 'book-show' data.imdbID %}" class="btn btn-main btn-effect">Book Now</a>
+                            
                             <a href="#" class="btn rate-movie"><i class="icon-heart"></i></a>
                             <div class="rating mt10">
                                 <i class="fa fa-star"></i>
@@ -108,7 +110,7 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star-o"></i>
-                                <span>296 Ratings</span>
+                                <span>{{ data.imdbRating }}</span>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -127,11 +129,10 @@
 
                             <div class="storyline">
                                 <h3 class="title">Storyline</h3>
-                                <p>In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mi magna. Etiam suscipit commodo gravida. Cras suscipit, quam vitae adipiscing faucibus, risus nibh laoreet odio, a porttitor metus eros ut enim. Morbi augue velit, tempus mattis dignissim nec, porta sed risus. Donec eget magna eu lorem tristique pellentesque eget eu dui. Fusce lacinia tempor malesuada. Ut lacus sapien, placerat a ornare nec, elementum sit amet felis.
-                                    Maecenas pretium lorem hendrerit eros sagittis fermentum.</p>
+                                <p>{{ data.Plot }}</p>
                             </div>
 
-                            <div class="movie-media mt50">
+<!--                             <div class="movie-media mt50">
                                 <h3 class="title"> Photos & Videos</h3>
                                 <ul class="image-gallery isotope">
                                     <li class="element">
@@ -180,7 +181,7 @@
 </a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -191,17 +192,16 @@
                             <aside class="widget widget-movie-details">
                                 <h3 class="title">Details</h3>
                                 <ul>
-                                    <li><strong>Release date: </strong>December 15, 2017</li>
-                                    <li><strong>Director: </strong><a href="#">Rian Johnson</a></li>
-                                    <li><strong>Budget: </strong>200 million USD</li>
-                                    <li><strong>Country: </strong>USA</li>
-                                    <li><strong>Language: </strong>English</li>
-                                    <li><strong>Production Co: </strong><a href="#">Lucasfilm</a></li>
+                                    <li><strong>Release date: </strong>{{ data.Released }}</li>
+                                    <li><strong>Director: </strong><a href="#">{{ data.Director }}</a></li>
+                                    <li><strong>Country: </strong>{{ data.Country }}</li>
+                                    <li><strong>Language: </strong>{{ data.Language }}</li>
+                                    <li><strong>Production Co: </strong><a href="#">{{ data.Production }}</a></li>
                                 </ul>
                             </aside>
 
 
-                            <aside class="widget widget-movie-cast">
+                            <!-- <aside class="widget widget-movie-cast">
                                 <h3 class="title">Cast</h3>
                                 <ul class="cast-wrapper">
                                     <li>
@@ -238,7 +238,7 @@
                                     </li>
                                 </ul>
                                 <a href="celebrities-list.html" class="btn btn-main btn-effect mt20">view all</a>
-                            </aside>
+                            </aside> -->
 
                         </div>
                     </div>

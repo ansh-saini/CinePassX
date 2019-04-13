@@ -1,31 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+from django_imgur.storage import ImgurStorage
+import datetime
+
+STORAGE = ImgurStorage()
 
 class Movie(models.Model):
-	title = models.CharField(max_length=50, blank=False)
+	title = models.CharField(max_length=50, blank=True)
 	tag = models.CharField(max_length=50, blank=False)
-	image = models.ImageField(default='default.jpg', upload_to='movie_thumbnails')
-	LANGUAGE_CHOICES = (
-		('hindi', 'Hindi'),
-		('english', 'English'),
-	)
-	language = models.CharField(max_length=10, blank=True, choices=LANGUAGE_CHOICES)
-	DIMENSION_CHOICES = (
-		('2d', '2D'),
-		('3d', '3D'),
-	)
-	dimension = models.CharField(max_length=2, default='2d', blank=False, choices=DIMENSION_CHOICES)
-	rating = models.IntegerField(null=True, blank=True)
-	link = models.CharField(null=True, max_length=50, blank=True)
-	
-	
+
 	def __str__(self):
-		return self.title
+		return f'{self.tag} ~ {self.title}'
 
 
 class Show(models.Model):
-	movie = models.OneToOneField(Movie, on_delete=models.CASCADE)
+	movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
 	date = models.DateField(blank=False)
 	time = models.TimeField(blank=False)
 
@@ -43,7 +33,11 @@ class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	phone = models.CharField(max_length=10, blank=False)
 	subscribed = models.BooleanField(default=False, blank=True)
+	sub_date = models.DateTimeField(default=datetime.datetime.now())
 	booked_show = models.BooleanField(default=False, blank=True)
+	book_counter = models.IntegerField(default=0)
+	plan = models.IntegerField(default=0)
+	friend = models.ManyToManyField(User, related_name='mates', blank=True)
 	# mail_subscribed = models.BooleanField(default=False, blank=True)
 	# show = models.OneToOneField(Show, on_delete=models.SET_DEFAULT, default=None)
 	# location = models.CharField(max_length=30, blank=True)

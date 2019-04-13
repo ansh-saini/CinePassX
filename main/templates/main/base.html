@@ -26,7 +26,7 @@
 
     <title>CinepassX - Movies & Cinema</title>
 
-    <link rel="shortcut icon" href="{% static 'main/images/favicon.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'main/images/favicon.png' %}" type="image/png">
     <link rel="apple-touch-icon" sizes="57x57" href="{% static 'main/images/apple-touch-icon-iphone.png' %}">
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'main/images/apple-touch-icon-ipad.png' %}">
     <link rel="apple-touch-icon" sizes="120x120" href="{% static 'main/images/apple-touch-icon-iphone-retina.png' %}">
@@ -54,6 +54,14 @@
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js' %}"></script>
 <![endif]-->
 </head>
+
+{% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
 
 <body>    
 

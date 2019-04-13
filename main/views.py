@@ -10,57 +10,104 @@ import requests
 import json
 import datetime
 from random import randint
-from .forms import UserRegisterForm, BookForm, MailSubscriberForm
+from .forms import UserRegisterForm, BookForm, MailSubscriberForm, FriendForm
 from .models import Show, MailSubscriber, Movie
 from . import CONSTANTS as constants
 from . import CONFIG as config
 
 @login_required
-def book(request, tag):
+def book(request):
 	if request.user.profile.subscribed:
 		if request.user.profile.booked_show:
 			messages.error(request, f'You have already booked a show today!')
-			return redirect('dashboard')
+			return redirect('home')
 		else:
 			print("ELSE")
 			if request.method == 'POST':	
-				date = datetime.datetime.now()
-				formated_date = date.strftime("%Y-%m-%d")
-				shows = Show.objects.filter(date=formated_date)
+				# date = datetime.datetime.now()
+				# formated_date = date.strftime("%Y-%m-%d")
+				# shows = Show.objects.filter(date=formated_date)
 				form = BookForm(request.POST)
-				request.user.profile.booked_show = True
+				data = dict(request.POST)['show'][0]
+				print(data)
+				book_show = Show.objects.get(id=data)
+				# request.user.profile.booked_show = True
+				request.user.profile.book_counter += 1
 				request.user.profile.save()
-				messages.success(request, f'Your Movie has been Boooked!')
-				return redirect('dashboard')
+				messages.success(request, f'Your Show [{book_show}] has been Boooked!')
+				return render(request, 'main/book_success.html')
 			else:
 				form = BookForm()
 			return render(request, 'main/book.html', {'form': form})
 	else:
 		messages.error(request, 'Please <a href="/payment">Click Here</a> to buy a Subscription First!', extra_tags='safe')
-		return redirect('dashboard')
+		return redirect('home')
 
+
+@login_required
+def movie_detail(request, tag):
+	date = datetime.datetime.now()
+	formated_date = date.strftime("%Y-%m-%d")
+	data = get_movie_detail(tag)
+	return render(request, 'main/movie-detail.html', {'data': data})
+		
 
 @login_required
 def dashboard(request):
 	date = datetime.datetime.now()
 	formated_date = date.strftime("%Y-%m-%d")
-	# shows = Show.objects.filter(date=formated_date)
-	shows = Show.objects.all()
+	shows = Show.objects.filter(date=formated_date)
+	# shows = Show.objects.all()
 	print(shows)
 	return render(request, 'main/dashboard.html', {'shows': shows, 'date': formated_date})
 
 def home(request):
+	shows = []
+	data = []
 	home = True
 	form = MailSubscriberForm()
-	date = datetime.datetime.now()
-	formated_date = date.strftime("%Y-%m-%d")
-	# shows = Show.objects.filter(date=formated_date)
-	shows = Show.objects.all()
-	# star_range = range(show.movie.rating)
-	return render(request, 'main/index.html', {'home': home, 'form': form,
-											 'shows': shows, 
-											 'date': formated_date})
+	# date = datetime.datetime.now()
+	# formated_date = date.strftime("%Y-%m-%d")
 
+	# show_ids = Show.objects.order_by().values('movie').distinct()
+	# for x in list(show_ids):
+	# 	show = Show.objects.get(id=x['movie'])
+	# 	shows.append(show)
+
+	# for show in shows:
+	# 	data.append(get_movie_detail(show.movie.tag))
+	movies = Movie.objects.all()
+	for movie in movies:
+		data.append(get_movie_detail(movie.tag))
+		
+	return render(request, 'main/index.html', {'home': home, 'form': form, 'data': data})
+
+
+
+@login_required
+def add_friend(request):
+	if request.user.profile.subscribed:
+		if request.method == 'POST':
+			form = FriendForm(request.POST)
+			friend_username = form.data['username']
+			try:
+				friend = User.objects.get(username=friend_username)
+			except Exception as e:
+				friend = None
+				messages.error(request, f'User Not Found!')
+			if friend:
+				print(list(request.user.profile.friend.all()))
+				if friend in list(request.user.profile.friend.all()):
+					messages.success(request, f'{friend.username} is already your friend!')
+				else:
+					request.user.profile.friend.add(friend)
+					messages.success(request, f'{friend.username} is now your friend!')
+		else:
+			form = FriendForm()
+	else:
+		messages.error(request, f'Please buy a subscription first!')
+		# return redirect('home')
+	return render(request, 'main/friends.html', {'form': form})
 
 @csrf_exempt
 def mail_subscribe(request):
@@ -73,9 +120,15 @@ def mail_subscribe(request):
 			form = MailSubscriberForm()
 	return redirect('home')
 
-def movie_detail(request, tag):
-	movie = Movie.objects.get(tag=tag)
-	return render(request, 'main/movie-detail.html', {'movie': movie})
+def get_movie_detail(tag):
+	apikey = '25890e89'
+	url = "http://www.omdbapi.com/"
+	params = {'i': tag, 'apikey': apikey} 
+	r = requests.get(url=url, params=params) 
+	data = r.json()
+	return data
+
+
 
 
 def register(request):
@@ -97,17 +150,31 @@ def register(request):
 		form = UserRegisterForm()
 	return render(request, 'main/register.html', {'form': form})
 
+
 @login_required
 def payment(request):   
 	data = {}
+	plan = dict(request.POST)['plan'][0]
+	if plan == 'plan1':
+		data['amount'] = float(249)
+		data['productinfo'] = 'One month CinePassX Subscription'
+	elif plan == 'plan2':
+		data['amount'] = float(899)
+		data['productinfo'] = 'Three month CinePassX Subscription'
+	elif plan == 'plan3':
+		data['amount'] = float(699)
+		data['productinfo'] = 'Three month CinePassX Subscription'
+	amount = data['amount']
+	info = data['productinfo']
 	txnid = get_transaction_id()
-	hash_ = generate_hash(request, txnid)
+	hash_ = generate_hash(request, txnid, amount, info)
 	print(hash_)
-	hash_string = get_hash_string(request, txnid)
+	hash_string = get_hash_string(request, txnid, amount, info)
 	print(hash_string)
 	data['action'] = constants.PAYMENT_URL_TEST 
-	data['amount'] = float(constants.PAID_FEE_AMOUNT)
-	data['productinfo']  = constants.PAID_FEE_PRODUCT_INFO
+	
+	# data['amount'] = float(constants.PAID_FEE_AMOUNT)
+	# data['productinfo']  = constants.PAID_FEE_PRODUCT_INFO
 	data['key'] = config.KEY
 	data['txnid'] = txnid
 	data['hash'] = hash_
@@ -117,16 +184,18 @@ def payment(request):
 	data['phone'] = request.user.profile.phone
 	data['service_provider'] = constants.SERVICE_PROVIDER
 	data['furl'] = request.build_absolute_uri(reverse('payment_failure'))
-	data['surl'] = request.build_absolute_uri(reverse('payment_success'))
+	data['surl'] = request.build_absolute_uri(reverse('payment_success', args=([request.user.username])))
+	print(data['surl'])
+	print(data['furl'])
 	
 	return render(request, 'main/payment_form.html', data)        
 	
 # generate the hash
-def generate_hash(request, txnid):
+def generate_hash(request, txnid, amount, info):
 	try:
 		# get keys and SALT from dashboard once account is created.
 		# hashSequence = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10"
-		hash_string = get_hash_string(request, txnid)
+		hash_string = get_hash_string(request, txnid, amount, info)
 		generated_hash = hashlib.sha512(hash_string.encode('utf-8')).hexdigest().lower()
 		return generated_hash
 	except Exception as e:
@@ -135,8 +204,8 @@ def generate_hash(request, txnid):
 		return None
 
 # create hash string using all the fields
-def get_hash_string(request, txnid):
-	hash_string = config.KEY+"|"+txnid+"|"+str(float(constants.PAID_FEE_AMOUNT))+"|"+constants.PAID_FEE_PRODUCT_INFO+"|"
+def get_hash_string(request, txnid, amount, info):
+	hash_string = config.KEY+"|"+txnid+"|"+str(amount)+"|"+info+"|"
 	hash_string += request.user.first_name+"|"+request.user.email+"|"
 	hash_string += "||||||||||"+config.SALT
 	return hash_string
@@ -148,20 +217,41 @@ def get_transaction_id():
 	return txnid
 
 @csrf_exempt
-def payment_success(request):
+def payment_success(request, user):
+	user = User.objects.get(username=user)
 	r = request.POST.dict()
-	# hashSequence = salt|status||||||udf5|udf4|udf3|udf2|udf1|email|firstname|productinfo|amount|txnid|key
-	hashSequence = config.SALT + '|' + r['status'] + '||||||' + r['udf5'] + '|' + r['udf4'] + '|' + r['udf3'] + '|' + r['udf2'] + '|' + r['udf1'] + '|' + r['email'] + '|' + r['firstname'] + '|' + r['productinfo'] + '|' + r['amount'] + '|' + r['txnid'] + '|' + config.KEY
-	print(hashSequence)
-	generated_hash = hashlib.sha512(hashSequence.encode('utf-8')).hexdigest().lower()
-	if generated_hash == r['hash']:
-		data = {'status': r['status'],
-				'txnid': r['txnid'],
-				'amount': r['amount'],
-		}
-		return render(request, 'main/payment_success.html', data)
+	if user.first_name == r['firstname']:
+		
+
+		plan = 0
+		# hashSequence = salt|status||||||udf5|udf4|udf3|udf2|udf1|email|firstname|productinfo|amount|txnid|key
+		hashSequence = config.SALT + '|' + r['status'] + '||||||' + r['udf5'] + '|' + r['udf4'] + '|' + r['udf3'] + '|' + r['udf2'] + '|' + r['udf1'] + '|' + r['email'] + '|' + r['firstname'] + '|' + r['productinfo'] + '|' + r['amount'] + '|' + r['txnid'] + '|' + config.KEY
+		print(hashSequence)
+		generated_hash = hashlib.sha512(hashSequence.encode('utf-8')).hexdigest().lower()
+		if generated_hash == r['hash']:
+			print(r['amount'])
+			if r['amount'] == '249.00':
+				plan = 1
+			elif r['amount'] == '899.00':
+				plan = 2
+			elif r['amount'] == '699.00':
+				plan = 3
+			print(plan)
+			user.profile.plan = plan
+			user.profile.subscribed = True
+			user.profile.sub_date = datetime.datetime.now()
+			user.profile.save()
+			print(user.profile.plan)
+			data = {'status': r['status'],
+					'txnid': r['txnid'],
+					'amount': r['amount'],
+			}
+			return render(request, 'main/payment_success.html', data)
+		else:
+			return render(request, 'main/payment_failure.html')
 	else:
-		return render(request, 'main/payment_failure.html')
+		print("fuck")
+		return redirect('home')
 
 @csrf_exempt
 def payment_failure(request):
@@ -172,6 +262,10 @@ def terms(request):
 
 def contact_us(request):
 	return render(request, 'main/contact-us.html')
+
+def error_404_view(request, exception):
+	return render(request,'main/404.html')
+
 
 # def home(request):
 # 	MERCHANT_KEY = ""

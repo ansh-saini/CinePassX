@@ -11,14 +11,97 @@
     </div>
 
 
+<!-- Registration Popup Start-->
+<!-- <div id="login-register-popup" class="small-dialog zoom-anim-dialog mfp-hide">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script type='text/javascript'>
+        $(function(){
+            if (Cookies.get("popup_1_2") == null) {
+                var overlay = $('<div id="overlay"></div>');
+                overlay.show();
+                overlay.appendTo(document.body);
+                $('.popup').show(); 
+                // Cookies.set("popup_1_2", "2");
+            }
+            $('.close').click(function(){
+                $('.popup').hide();
+                overlay.appendTo(document.body).remove();
+                return false;
+            });
+
+            $('.x').click(function(){
+                $('.popup').hide();
+                overlay.appendTo(document.body).remove();
+                return false;
+            });
+        });
+    </script>
+    <div class="popup">
+        <div class='cnt223'>
+            <h1>Important Notice</h1>
+            <p>Due to a lot more registrations than we anticupated, we're closing registrations for this month. Please drop your E-mail so we can inform you when we reopen registrations next month.
+            <br/>
+            <br/>
+            <form method="POST" action="/mail-subscribe/" class="mt50">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="email" name="email" class="form-control" id="mc-email" placeholder="Your Email" autocomplete="off">
+                        {% csrf_token %}
+                        <label for="mc-email"></label>
+                        <button type="submit" class="btn btn-main btn-effect">Subscribe</button>
+                    </div>
+                </div>
+            </form>
+            <a href='' class='btn btn-main btn-effect close'>Close</a>
+            </p>
+        </div>
+    </div> 
+</div> -->
+<!-- Registration Popup End -->
+
+<!-- Timer Start -->
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date("Apr 15, 2019 00:00:00").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get todays date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo_counter"
+  document.getElementById("demo_counter").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo_counter").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
+<!-- Timer End -->
+
     <nav id="main-mobile-nav"></nav>
 
 
     <div class="wrapper">
-
+    
 
         <header class="header header-fixed header-transparent text-white">
             <div class="container-fluid">
+
 
                 <nav class="navbar navbar-expand-lg">
                     <a class="navbar-brand" href="{% url 'home' %}">
@@ -42,8 +125,22 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="contact-us.html">Contact us</a>
+                                <a class="nav-link" href="{% url 'contact' %}">Contact us</a>
                             </li>
+                            {% if user.profile.subscribed %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'add-friend' %}">Add Friend</a>
+                            </li>
+                            {% endif %}
+                            {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            </li>
+                            {% endif %}
                         </ul>
 
 
@@ -76,7 +173,6 @@
             </div>
         </header>
 
-
         <section id="slider" class="hero-slider">
             <div class="rev-slider-wrapper fullwidthbanner-container overlay-gradient">
 
@@ -85,13 +181,17 @@
 
                         <li data-transition="fade">
 
-                            <img src="{% static 'main/images/posters/movie-collection.jpg' %}" alt="Image" title="slider-bg" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina="">
+                            <img src="{% static 'main/images/posters/movie-collection2.jpg' %}" alt="Image" title="slider-bg" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina="">
 
                             <div class="tp-caption tp-resizeme" data-x="center" data-hoffset="" data-y="middle" data-voffset="['-80','-80','-80','-80']" data-responsive_offset="on" data-fontsize="['60','50','40','30']" data-lineheight="['60','50','40','30']" data-whitespace="nowrap"
                                 data-frames='[{"delay":1000,"speed":2000,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:0;s:inherit;e:inherit;","to":"o:1;","ease":"Power2.easeInOut"},{"delay":"wait","speed":500,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]' style="z-index: 5; color: #fff; font-weight: 900;">WELCOME TO CINEPASSX
 
-                                <h5 style="z-index: 5; color: #fff; font-weight: bold;">Still watching movies the ancient way? Aww..</h5>
-
+                                <h5 style="z-index: 5; color: #fff; font-weight: bold;">Still watching movies the old way? <br>Don't worry, we got your back!
+                                <br>
+                            
+                                <h4 style="z-index: 5; color: #fff; font-weight: bold;">Hurry! Registrations open till<br><u>15th April, 2019.</u></h4>
+                                <h3 style="z-index: 5; color: #fff; font-weight: bold;" id="demo_counter"></h3>
+                                </h5>
                             </div>
 
                           
@@ -180,43 +280,47 @@
 
                 <div class="row justify-content-center">
                     <div class="col-md-7 text-center">
-                        <h2 class="title">In Cinemas Right Now</h2>
-                    <!--    <h6 class="subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy consectetuer adipiscing.</h6> -->
+                        <h2 class="title">Now Showing</h2>
+                       <h5>We are partnered with PVR: Shalimar Bagh</h5>
                     </div>
                 </div>
             </div>
 
 
             <div class="owl-carousel latest-releases-slider">
-{% for show in shows %}
+{% for movie in data %}
                 <div class="item">
                     <div class="movie-box-3">
                         <div class="listing-container">
 
                             <div class="listing-image">
 
-                                <img src="{{ show.movie.image.url }}" alt="">
+                                <img src="{{ movie.Poster }}" alt="">
 </div>
 
                                 <div class="listing-content">
                                     <div class="inner">
 
                                         <div class="play-btn">
-                                            <a href="{{ show.movie.link }}" class="play-video">
+                                            <a href="{{ movie.Website }}" class="play-video">
 <i class="fa fa-play"></i>
 </a>
                                         </div>
-                                        <h2 class="title">{{show.movie.title}}</h2>
+                                        <h2 class="title">{{movie.Title}}</h2>
 
                                         <div class="stars">
                                             <div class="rating">
                                                 <i class="fa fa-star"></i>
-                                                <span>{{show.movie.rating}}/10</span>
-                                                <span class="category">Action, Fantasy</span>
+                                                <span>{{movie.imdbRating}}</span>
+                                                <div class="category">{{movie.Genre}}</div>
                                             </div>
                                         </div>
-                                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam...</p> -->
-                                        <a href="{% url 'movie-detail' show.movie.tag %}" class="btn btn-main btn-effect">details</a>
+                                        <!-- <p>{{movie.Plot}}</p> --><br>
+                                        {% if user.profile.subscribed %}
+                                        <a href="{% url 'book-show' %}" class="btn btn-main btn-effect">Book Now</a>
+                                        {% else %}
+                                        <a href="#pricing" class="btn btn-main btn-effect">Book Now</a>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -231,10 +335,10 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-7 text-center">
-                        <h2 class="title">How it works?</h2>
+                        <h2 class="title">Here's How the Magic Happens</h2>
                         <h6 class="subtitle">A monthly subscription which covers your desire to watch movies without burning a hole in your wallet!</h6>
                     </div>
-                </div>
+                </div> -->
 
 
                 <div class="row mt50 justify-content-center">
@@ -248,8 +352,8 @@
 <i class="icon-login"></i>
 </div>
 <div>
-<h5 class="title">Create an Account</h5>
-<h6 class="subtitle">Create your account with a few simple steps.</h6>
+<h5 class="title">Create your Account</h5>
+<h6 class="subtitle">in just a few simple steps.</h6>
 </div>
 </a>
                             </li>
@@ -261,7 +365,7 @@
 </div>
 <div>
 <h5 class="title">Choose your Plan</h5>
-<h6 class="subtitle">Choose the plan that suits you the most.</h6>
+<h6 class="subtitle">Subscribe to our monthly services.</h6>
 </div>
 </a>
                             </li>
@@ -273,7 +377,7 @@
 </div>
 <div>
 <h5 class="title">Find your Movie</h5>
-<h6 class="subtitle">Search for your favorite Movie.</h6>
+<h6 class="subtitle">and book your tickets at you desired cinema.</h6>
 </div>
 </a>
                             </li>
@@ -285,7 +389,7 @@
 </div>
 <div>
 <h5 class="title">Enjoy CinepassX</h5>
-<h6 class="subtitle">Enjoy unlimited Movies in your nearest cinema hall.</h6>
+<h6 class="subtitle">Collect your ticket half an hour before the show starts.</h6>
 </div>
 </a>
                             </li>
@@ -359,13 +463,13 @@
             </div>
         </section> -->
 
-<section class="become-premium3 ptb100">
+<section class="become-premium3 ptb100" id="pricing">
             <div class="container">
 
                 <div class="row justify-content-center">
                     <div class="col-md-7 text-center">
-                        <h2 class="title">Become a Premium Member</h2>
-                        <h6 class="subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</h6>
+                        <h2 class="title">Subscription Packages</h2>
+                        <h6 class="subtitle">We know you love movies and that's why we love you. Delicately crafted to cater to your needs.</h6>
                     </div>
                 </div>
 
@@ -379,18 +483,22 @@
 
                                 <div class="plan-price">
                                     <h3>Basic</h3>
-                                    <span class="value">Rs. 200</span>
-                                    <span class="period">Try cinepassX for FREE for the first 7 days, you can upgrade anytime.</span>
+                                    <span class="value">Rs. 249/<small>mo</small></span>
+                                    <span class="period">Watch 2 Movies a Month</span>
                                 </div>
 
                                 <div class="plan-features">
                                     <ul>
-                                        <li>7 days</li>
-                                        <li>720p Resolution</li>
-                                        <li>Desktop Only</li>
-                                        <li>Limited Support</li>
+<!--                                         <li>1 Month</li> -->
+                                        <li>Rs. 10 flat Booking Fees</li>
+                                        <li>Mon-Thu</li>
+                                        <li>Classic/Prime Class</li>
                                     </ul>
-                                    <a class="btn btn-main btn-effect mt30" href="/payment/">Subscribe</a>
+                                    <form method="POST" action="/payment/">
+                                    {% csrf_token %}
+                                    <button class="btn btn-main btn-effect mt30" type="submit" name="Subscribe">Subscribe</button>
+                                    <input type="hidden" name="plan" value="plan1">
+                                </form>
                                 </div>
                             </div>
 
@@ -398,19 +506,24 @@
 
                                 <div class="plan-price">
                                     <h3>Premium</h3>
-                                    <span class="value">Rs. 399</span>
-                                    <span class="period">Most wanted subscription package by our users.</span>
+                                    <span class="value">Rs. 899/3<small>mo</small></span>
+                                    <span class="period">Watch 2 Movies Each Month<br>
+                                    because you deserve a break</span>
                                 </div>
 
                                 <div class="plan-features">
                                     <ul>
-                                        <li>1 Month</li>
-                                        <li>Unlimited Movies</li>
-                                        <li>Lifetime Availability</li>
-                                        <li>Cinemas Near You</li>
-                                        <li>24/7 Support</li>
+                                        
+                                        <li>No Booking Fees</li>
+                                        <li>Mon-Thu Classic/Prime Class</li>
+                                        <li>Fri-Sat Classic Class</li>
+                                        <!-- <li>24/7 Support</li> -->
                                     </ul>
-                                    <a class="btn btn-main btn-effect mt30" href="/payment/">Subscribe</a>
+                                    <form method="POST" action="/payment/">
+                                    {% csrf_token %}
+                                    <button class="btn btn-main btn-effect mt30" type="submit" name="Subscribe">Subscribe</button>
+                                    <input type="hidden" name="plan" value="plan2">
+                                </form>
                                 </div>
                             </div>
 
@@ -418,18 +531,22 @@
 
                                 <div class="plan-price">
                                     <h3>Cinematic</h3>
-                                    <span class="value">Rs. 899</span>
-                                    <span class="period">Watch your favorite movies anywhere and anytime.</span>
+                                    <span class="value">Rs. 699/3<small>mo</small></span>
+                                    <span class="period">Watch 2 Movies each Month</span>
                                 </div>
 
                                 <div class="plan-features">
                                     <ul>
-                                        <li>2 Months</li>
-                                        <li>Ultra HD</li>
-                                        <li>Any Device</li>
-                                        <li>24/7 Support</li>
+                                        <li>Discounted Price</li>
+                                        <li>No Booking Fees</li>
+                                        <li>Mon-Thu</li>
+                                        <li>Classic/Gold Class</li>
                                     </ul>
-                                    <a class="btn btn-main btn-effect mt30" href="/payment/">Subscribe</a>
+                                    <form method="POST" action="/payment/">
+                                    {% csrf_token %}
+                                    <button class="btn btn-main btn-effect mt30" type="submit" name="Subscribe">Subscribe</button>
+                                    <input type="hidden" name="plan" value="plan3">
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -641,13 +758,14 @@
 
                 <div class="row">
                     <div class="col-md-6 col-12">
-                        <div class="img-box overlay-gradient mr30">
-                            <img src="{% static 'main/images/other/landscape.jpg' %}" alt="" class="img-resonsive img-shadow">
+                        <!-- Add class overlay-gradient for gradient -->
+                        <div class="img-box mr30">
+                            <img src="{% static 'main/images/other/landscape1.jpg' %}" alt="" class="img-resonsive img-shadow">
 </div>
                         </div>
                         <div class="col-md-6 col-12 mt50">
-                            <h2 class="title">Join CinepassX Now!</h2>
-                            <h6 class="subtitle">Subscribe to our emails and we'll keep your posted with latest movies. No Spam, We Promise.</h6>
+                            <h2 class="title">CinepassX - Movies & You</h2>
+                            <h6 class="subtitle">Give us a chance to show you our love.</h6>
 
                             <form method="POST" action="/mail-subscribe/" class="mt50">
 
@@ -679,7 +797,7 @@
                                 <img src="{% static 'main/images/logo.png' %}" alt="logo" class="logo">
 
                                 <img src="{% static 'main/images/logo-white.png' %}" alt="white logo" class="logo-white">
-                                <p class="nomargin">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, ducimus, atque. Praesentium suscipit provident explicabo dignissimos nostrum numquam deserunt earum accusantium et fugit.</p>
+                                <p class="nomargin">We at CinepassX truly believe in the value of creating human bonds and the way we do so is by providing you with an unrivaled experience that allows you to stay connected with your dearest ones, always, for real.</p>
                             </div>
                         </div>
 
@@ -713,7 +831,7 @@
                         <div class="col-lg-3 col-md-6 col-sm-12">
                             <div class="widget widget-social">
                                 <h4 class="widget-title">follow us</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, ducimus, atque.</p>
+                                <p>Follow us on Social Media and we'll keep you posted about the latest movies.</p>
 
                                 <ul class="social-btns">
 

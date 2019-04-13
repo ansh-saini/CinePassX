@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    'django_imgur',
     'main',
     'crispy_forms',
     'django.contrib.admin',
@@ -120,6 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
@@ -128,3 +130,12 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+#Imgur
+from main import CONFIG as config
+
+IMGUR_CONSUMER_ID = config.IMGUR_CONSUMER_ID
+IMGUR_CONSUMER_SECRET = config.IMGUR_CONSUMER_SECRET
+IMGUR_USERNAME = config.IMGUR_USERNAME
+IMGUR_ACCESS_TOKEN = config.IMGUR_ACCESS_TOKEN
+IMGUR_ACCESS_TOKEN_REFRESH = config.IMGUR_ACCESS_TOKEN_REFRESH
