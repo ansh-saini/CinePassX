@@ -24,19 +24,21 @@ def book(request, tag):
 		else:
 			print("ELSE")
 			if request.method == 'POST':	
-				print('2324231232423qe')
 				# date = datetime.datetime.now()
 				# formated_date = date.strftime("%Y-%m-%d")
 				# shows = Show.objects.filter(date=formated_date)
 				form = BookForm(tag, request.POST)
-				data = dict(request.POST)['show'][0]
-				print(data)
-				book_show = Show.objects.get(id=data)
-				# request.user.profile.booked_show = True
-				request.user.profile.book_counter += 1
-				request.user.profile.save()
-				messages.success(request, f'Your Show [{book_show}] has been Boooked!')
-				return render(request, 'main/book_success.html')
+				try:
+					data = dict(request.POST)['shows'][0]
+					print(data)
+					book_show = Show.objects.get(id=data)
+					# request.user.profile.booked_show = True
+					request.user.profile.book_counter += 1
+					request.user.profile.save()
+					messages.success(request, f'Your Show [{book_show}] has been Boooked!')
+					return render(request, 'main/book_success.html')
+				except Exception as e:
+					return render(request, 'main/book_failure.html')
 			else:
 
 				form = BookForm(tag)

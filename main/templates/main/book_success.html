@@ -1,7 +1,27 @@
 {% extends "main/base.html" %}
+{% load static %}
 {% block content %}
 
-<h2>Your Show has been booked!</h2>
-<h4>Please collect your ticket half hour early.
-</h4>
+<div class="loading">
+        <div class="loading-inner">
+            <div class="loading-effect">
+                <div class="object"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="wrapper">
+        <main class="login-register-page" style="background-image: url({% static 'main/images/posters/movie-collection.jpg' %})">
+            <div class="container">
+<img src="{% static 'main/images/logo-white.png' %}" width="200" alt="logo">
+<h3 class="text-white">Thank you!<br>We're booking your show for {{booked_show.movie.title}} at {{booked_show.time}}</h3>
+<h5 class="text-white">
+Please reach PVR Shalimar Bagh before 30 minutes or else you will be charged 50% of the ticket cost.<br>Feel free to contact us for any queries or for seating arrangement at 8799723483</h5>
+<a href="{% url 'home' %}" class="text-white">Back to Home</a>
+</div>
+</main>
+</div>
+
+
 {% endblock content %}

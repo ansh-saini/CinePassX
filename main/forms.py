@@ -22,7 +22,8 @@ class BookForm(forms.Form):
 		date = datetime.datetime.now().strftime("%Y-%m-%d")
 		queryset = Show.objects.filter(date=date, movie__tag=tag)
 		self.fields['shows'] = forms.ModelMultipleChoiceField(widget=forms.RadioSelect, queryset=queryset)
-		print(queryset)
+	
+		
 
 # class BookForm(forms.Form):
 # 	date = datetime.datetime.now().strftime("%Y-%m-%d")
