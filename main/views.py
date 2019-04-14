@@ -16,7 +16,7 @@ from . import CONSTANTS as constants
 from . import CONFIG as config
 
 @login_required
-def book(request):
+def book(request, tag):
 	if request.user.profile.subscribed:
 		if request.user.profile.booked_show:
 			messages.error(request, f'You have already booked a show today!')
@@ -24,10 +24,11 @@ def book(request):
 		else:
 			print("ELSE")
 			if request.method == 'POST':	
+				print('2324231232423qe')
 				# date = datetime.datetime.now()
 				# formated_date = date.strftime("%Y-%m-%d")
 				# shows = Show.objects.filter(date=formated_date)
-				form = BookForm(request.POST)
+				form = BookForm(tag, request.POST)
 				data = dict(request.POST)['show'][0]
 				print(data)
 				book_show = Show.objects.get(id=data)
@@ -37,7 +38,8 @@ def book(request):
 				messages.success(request, f'Your Show [{book_show}] has been Boooked!')
 				return render(request, 'main/book_success.html')
 			else:
-				form = BookForm()
+
+				form = BookForm(tag)
 			return render(request, 'main/book.html', {'form': form})
 	else:
 		messages.error(request, 'Please <a href="/payment">Click Here</a> to buy a Subscription First!', extra_tags='safe')

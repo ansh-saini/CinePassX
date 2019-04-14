@@ -317,7 +317,7 @@ var x = setInterval(function() {
                                         </div>
                                         <!-- <p>{{movie.Plot}}</p> --><br>
                                         {% if user.profile.subscribed %}
-                                        <a href="{% url 'book-show' %}" class="btn btn-main btn-effect">Book Now</a>
+                                        <a href="{% url 'book-show' movie.imdbID %}" class="btn btn-main btn-effect">Book Now</a>
                                         {% else %}
                                         <a href="#pricing" class="btn btn-main btn-effect">Book Now</a>
                                         {% endif %}
